@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.sim.SimModelData;
-import frc.robot.subsystems.drivetrain.GyroIO.GyroIOInputs;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -30,7 +29,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private ChassisSpeeds targetChassisVelocity = new ChassisSpeeds();
     private double[] chassisVelocityLogged = new double[3];
 
-    public DrivetrainSubsystem(double trackwidth, double wheelbase, double maxTranslationalVelocityMetersPerSec,
+    public DrivetrainSubsystem(
+            double trackwidth,
+            double wheelbase,
+            double maxTranslationalVelocityMetersPerSec,
             GyroIO gyroIO,
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
