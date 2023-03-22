@@ -12,9 +12,9 @@ import frc.robot.sim.SimModelData;
 import org.littletonrobotics.junction.Logger;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    private final double trackwidth;
-    private final double wheelbase;
-    private final double maxTranslationalVelocityMetersPerSec;
+    private final double trackwidth = 0.0;
+    private final double wheelbase = 0.0;
+    private final double maxTranslationalVelocityMetersPerSec = 0.0;
     private final double maxAngularVelocityRadPerSec;
 
     private final GyroIO gyroIO;
@@ -30,17 +30,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private double[] chassisVelocityLogged = new double[3];
 
     public DrivetrainSubsystem(
-            double trackwidth,
-            double wheelbase,
-            double maxTranslationalVelocityMetersPerSec,
             GyroIO gyroIO,
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
-        this.trackwidth = trackwidth;
-        this.wheelbase = wheelbase;
-        this.maxTranslationalVelocityMetersPerSec = maxTranslationalVelocityMetersPerSec;
-        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec
-                / Math.hypot(trackwidth / 2.0, wheelbase / 2.0);
+        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec / Math.hypot(trackwidth / 2.0, wheelbase / 2.0);
 
         this.gyroIO = gyroIO;
 

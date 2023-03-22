@@ -5,24 +5,24 @@ import org.littletonrobotics.junction.AutoLog;
 public interface SwerveModuleIO {
     @AutoLog
     class SwerveModuleIOInputs {
-        public double drivePositionMeters;
-        public double driveVelocityMetersPerSec;
-        public double driveAppliedVolts;
-        public double driveCurrentDrawAmps;
+        public double leftAngleRad;
+        public double leftAngularVelocityRadPerSec;
+        public double leftAppliedPower;
+        public double leftCurrentDrawAmps;
 
-        public double steerAngleRad;
-        public double steerAngularVelocityRadPerSec;
-        public double steerAbsoluteAngleRad;
-        public double steerAppliedVolts;
-        public double steerCurrentDrawAmps;
+        public double drivePositionMeters;
+        public double absoluteAngleRad;
+        public double absoluteAngularVelocityRadPerSec;
+
+        public double rightAngleRad;
+        public double rightAngularVelocityRadPerSec;
+        public double rightAppliedPower;
+        public double rightCurrentDrawAmps;
     }
 
     default void updateInputs(SwerveModuleIOInputs inputs) {
     }
 
-    default void setTargetDriveVelocity(double velocityMetersPerSec) {
-    }
-
-    default void setTargetSteerAngle(double angleRad) {
+    default void drive(double velocityMetersPerSec,double targetSteerAngle) {
     }
 }
