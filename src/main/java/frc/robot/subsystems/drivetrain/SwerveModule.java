@@ -22,6 +22,7 @@ public class SwerveModule {
     }
 
     public void setTargetState(SwerveModuleState state) {
+        io.drive(state.speedMetersPerSecond, state.angle.getRadians());
     }
 
     public SwerveModulePosition getCurrentPosition() {

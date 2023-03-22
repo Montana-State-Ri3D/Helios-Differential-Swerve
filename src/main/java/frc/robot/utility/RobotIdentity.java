@@ -16,9 +16,8 @@ public enum RobotIdentity {
         // When we're running on a real robot we'll base the identity on its MAC address
         if (RobotBase.isReal()) {
             return JUNO_TEST_BOT;
+        }else{
+            return SIMULATION;
         }
-
-        // Otherwise we know we're running in a simulation
-        return SIMULATION;
     }
 }

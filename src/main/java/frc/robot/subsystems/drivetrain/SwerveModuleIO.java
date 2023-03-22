@@ -19,7 +19,7 @@ public interface SwerveModuleIO {
         public double rightAppliedPower;
         public double rightCurrentDrawAmps;
     }
-
+    
     default void updateInputs(SwerveModuleIOInputs inputs) {
     }
 
