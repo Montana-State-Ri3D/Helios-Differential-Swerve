@@ -55,6 +55,9 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getDistance());
         inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getRate());
 
+        inputs.wheelAngalRad = (leftMotorSim.getAngularPositionRad() - rightMotorSim.getAngularPositionRad())/2.0;
+        inputs.wheelAngularVelocityRadPerSec = (leftMotorSim.getAngularVelocityRadPerSec() - rightMotorSim.getAngularVelocityRadPerSec())/2.0;
+
         inputs.rightAngleRad = rightMotorSim.getAngularPositionRad();
         inputs.rightAngularVelocityRadPerSec = rightMotorSim.getAngularVelocityRadPerSec();
         inputs.rightAppliedPower = rightPower;

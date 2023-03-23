@@ -89,7 +89,7 @@ public final class Constants {
     public static final double Q_AZIMUTH = 0.08; // radians
     public static final double Q_WHEEL_ANG_VELOCITY = 5; // radians per sec
 
-    public static final double CONTROL_EFFORT = 1;
+    public static final double CONTROL_EFFORT = .8;
 
             // Size of the robot chassis in meters
             public static final double WIDTH = 0.6223; // meters

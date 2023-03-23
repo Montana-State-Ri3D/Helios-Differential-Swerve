@@ -135,11 +135,11 @@ public class SwerveModule {
     }
 
     private double getAzimuthAngularVelocity() {
-        return ((inputs.leftAngularVelocityRadPerSec + inputs.rightAngularVelocityRadPerSec) / (2.0 * STEER_RADIO));
+        return (inputs.absoluteAngularVelocityRadPerSec / STEER_RADIO);
     }
 
     private double getWheelAngularVelocity() {
-        return ((inputs.leftAngularVelocityRadPerSec - inputs.rightAngularVelocityRadPerSec) / (2.0 * DRIVE_RADIO));
+        return ( inputs.wheelAngularVelocityRadPerSec/ DRIVE_RADIO);
     }
 
     private void setPowers(double leftPower, double rightPower) {
