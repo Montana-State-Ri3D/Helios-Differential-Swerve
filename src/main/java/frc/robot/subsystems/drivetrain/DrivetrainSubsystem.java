@@ -14,9 +14,7 @@ import static frc.robot.Constants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    private final double trackwidth = 0.0;
-    private final double wheelbase = 0.0;
-    private final double maxTranslationalVelocityMetersPerSec = 0.0;
+    private final double maxTranslationalVelocityMetersPerSec = MOTOR_FREE_SPEED/DRIVE_RADIO;
     private final double maxAngularVelocityRadPerSec;
 
     private final GyroIO gyroIO;
@@ -35,15 +33,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
             GyroIO gyroIO,
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
-        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec / Math.hypot(trackwidth / 2.0, wheelbase / 2.0);
+        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec
+                / Math.hypot(WIDTH / 2.0, LENGTH / 2.0);
 
         this.gyroIO = gyroIO;
 
         this.swerveModules = new SwerveModule[] {
-                new SwerveModule("FrontLeftModule", frontLeftModuleIO,NORTH_WEST),
-                new SwerveModule("FrontRightModule", frontRightModuleIO,NORTH_EAST),
-                new SwerveModule("BackLeftModule", backLeftModuleIO,SOUTH_WEST),
-                new SwerveModule("BackRightModule", backRightModuleIO,SOUTH_EAST)
+                new SwerveModule("FrontLeftModule", frontLeftModuleIO, NORTH_WEST),
+                new SwerveModule("FrontRightModule", frontRightModuleIO, NORTH_EAST),
+                new SwerveModule("BackLeftModule", backLeftModuleIO, SOUTH_WEST),
+                new SwerveModule("BackRightModule", backRightModuleIO, SOUTH_EAST)
         };
 
         modulePositions = new SwerveModulePosition[swerveModules.length];
@@ -54,13 +53,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         this.kinematics = new SwerveDriveKinematics(
                 // Front Left (+x, +y)
-                new Translation2d(wheelbase / 2.0, trackwidth / 2.0),
+                new Translation2d(LENGTH / 2.0, WIDTH / 2.0),
                 // Front Right (+x, -y)
-                new Translation2d(wheelbase / 2.0, -trackwidth / 2.0),
+                new Translation2d(LENGTH / 2.0, -WIDTH / 2.0),
                 // Back Left (-x, +y)
-                new Translation2d(-wheelbase / 2.0, trackwidth / 2.0),
+                new Translation2d(-LENGTH / 2.0, WIDTH / 2.0),
                 // Back Right (-x, -y)
-                new Translation2d(-wheelbase / 2.0, -trackwidth / 2.0));
+                new Translation2d(-LENGTH / 2.0, -WIDTH / 2.0));
 
         Rotation2d initialGyroAngle = new Rotation2d();
         this.odometry = new SwerveDriveOdometry(kinematics, initialGyroAngle, modulePositions);
@@ -75,6 +74,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // Update gyroscope sensor values
         gyroIO.updateInputs(gyroInputs);
         Logger.getInstance().processInputs("Drivetrain/Gyro", gyroInputs);
+
+        if (this.getCurrentCommand() != null) {
+
+            Logger.getInstance().recordOutput("Drivetrain/CurentCommand", this.getCurrentCommand().getName());
+        } else {
+            Logger.getInstance().recordOutput("Drivetrain/CurentCommand", "none");
+        }
 
         for (int i = 0; i < swerveModules.length; ++i) {
             // Update all the sensor values of each module
@@ -148,10 +154,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public ChassisSpeeds getTargetChassisSpeeds() {
         return targetChassisVelocity;
-    }
-
-    public void setTargetChassisVelocity(ChassisSpeeds targetChassisVelocity) {
-        this.targetChassisVelocity = targetChassisVelocity;
     }
 
     public SwerveDriveKinematics getKinematics() {

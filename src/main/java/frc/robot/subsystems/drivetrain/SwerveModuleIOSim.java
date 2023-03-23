@@ -32,17 +32,20 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
 
         leftMotor = DCMotor.getNEO(1);
         rightMotor = DCMotor.getNEO(1);
-        leftMotorSim = new DCMotorSim(leftMotor,DRIVE_RADIO, momentjKgMetersSquared);
-        rightMotorSim = new DCMotorSim(rightMotor,DRIVE_RADIO, momentjKgMetersSquared);
+        leftMotorSim = new DCMotorSim(leftMotor,1.0, momentjKgMetersSquared);
+        rightMotorSim = new DCMotorSim(rightMotor,1.0, momentjKgMetersSquared);
 
-        steerEncoder = EncoderSim.createForIndex(4096);
+        steerEncoder = EncoderSim.createForIndex(1);
     }
 
     @Override
     public void updateInputs(SwerveModuleIOInputs inputs) {
+
+        leftMotorSim.update(kDt);
+        rightMotorSim.update(kDt);
+
         steerEncoder.setDistance((leftMotorSim.getAngularVelocityRadPerSec() - rightMotorSim.getAngularVelocityRadPerSec()) / 2.0);
         steerEncoder.setRate((leftMotorSim.getAngularVelocityRadPerSec() - rightMotorSim.getAngularVelocityRadPerSec()) / 2.0);
-
 
         inputs.leftAngleRad = leftMotorSim.getAngularPositionRad();
         inputs.leftAngularVelocityRadPerSec = leftMotorSim.getAngularVelocityRadPerSec();
@@ -60,8 +63,10 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
 
     @Override
     public void setSpeeds(double leftPower, double rightPower) {
+        this.leftPower = leftPower;
+        this.rightPower = rightPower;
 
-        rightMotorSim.setInput(rightPower);
-        leftMotorSim.setInput(leftPower);
+        rightMotorSim.setInputVoltage(rightPower*12);
+        leftMotorSim.setInputVoltage(leftPower*12);
     }
 }

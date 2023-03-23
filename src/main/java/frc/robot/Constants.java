@@ -27,8 +27,8 @@ public final class Constants {
 
     public static final int PDP_CAN_ID = 0;
 
-    public static final double DRIVE_RADIO = 1.0;
-    public static final double STEER_RADIO = 1.0;
+    public static final double DRIVE_RADIO = 6.46875;
+    public static final double STEER_RADIO = 9.2;
 
     public static final double MOTOR_FREE_SPEED = 4700;
 
@@ -63,7 +63,7 @@ public final class Constants {
 
     public static final double VOLTAGE = 12;
 
-    public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
+    public static final double FEED_FORWARD =VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
     public static final double INERTIA_WHEEL = 0.005;
     public static final double INERTIA_STEER = 0.004;
