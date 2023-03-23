@@ -1,11 +1,4 @@
 package frc.robot.subsystems.drivetrain;
-
-import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-import com.ctre.phoenix.sensors.CANCoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
@@ -19,20 +12,8 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     // competition, as well as the "squish factor" between
     // the wheels and the carpet. Function may be added down the line to dynamically
     // adjust this value in the field.
-    private static final double WHEEL_DIAMETER_METERS = WHEEL_NOMINAL_DIAMETER_METERS - TREADWEAR;
 
     private final EncoderSim steerEncoder;
-
-    private final PIDController steerPID;
-    private final PIDController drivePID;
-
-    private final double steerkP = 0.10;
-    private final double steerkI = 0.0;
-    private final double steerkD = 0.0;
-
-    private final double drivekP = 0.00001;
-    private final double drivekI = 0.0;
-    private final double drivekD = 0.0;
 
     private final DCMotor leftMotor;
     private final DCMotor rightMotor;
@@ -54,22 +35,20 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         leftMotorSim = new DCMotorSim(leftMotor,DRIVE_RADIO, momentjKgMetersSquared);
         rightMotorSim = new DCMotorSim(rightMotor,DRIVE_RADIO, momentjKgMetersSquared);
 
-        steerEncoder = EncoderSim.createForIndex(1);
-
-        steerPID = new PIDController(steerkP, steerkI, steerkD);
-        drivePID = new PIDController(drivekP, drivekI, drivekD);
-        leftPower = 0;
-        rightPower = 0;
+        steerEncoder = EncoderSim.createForIndex(4096);
     }
 
     @Override
     public void updateInputs(SwerveModuleIOInputs inputs) {
+        steerEncoder.setDistance((leftMotorSim.getAngularVelocityRadPerSec() - rightMotorSim.getAngularVelocityRadPerSec()) / 2.0);
+        steerEncoder.setRate((leftMotorSim.getAngularVelocityRadPerSec() - rightMotorSim.getAngularVelocityRadPerSec()) / 2.0);
+
+
         inputs.leftAngleRad = leftMotorSim.getAngularPositionRad();
         inputs.leftAngularVelocityRadPerSec = leftMotorSim.getAngularVelocityRadPerSec();
         inputs.leftAppliedPower = leftPower;
         inputs.leftCurrentDrawAmps = leftMotorSim.getCurrentDrawAmps();
 
-        inputs.drivePositionMeters = (leftMotorSim.getAngularPositionRad() + rightMotorSim.getAngularPositionRad()) / 2.0;
         inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getDistance());
         inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getRate());
 
@@ -80,14 +59,9 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     }
 
     @Override
-    public void drive(double velocityMetersPerSec, double targetSteerAngle) {
-        steerPID.setSetpoint(targetSteerAngle);
-        drivePID.setSetpoint(velocityMetersPerSec);
+    public void setSpeeds(double leftPower, double rightPower) {
 
-        double steerPower = steerPID.calculate(steerEncoder.getDistance());
-        double drivePower = drivePID.calculate((leftMotorSim.getAngularVelocityRadPerSec() + rightMotorSim.getAngularVelocityRadPerSec()) / 2.0);
-
-        rightMotorSim.setInput(steerPower + drivePower);
-        leftMotorSim.setInput(steerPower - drivePower);
+        rightMotorSim.setInput(rightPower);
+        leftMotorSim.setInput(leftPower);
     }
 }

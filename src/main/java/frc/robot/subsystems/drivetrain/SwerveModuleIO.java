@@ -10,7 +10,6 @@ public interface SwerveModuleIO {
         public double leftAppliedPower;
         public double leftCurrentDrawAmps;
 
-        public double drivePositionMeters;
         public double absoluteAngleRad;
         public double absoluteAngularVelocityRadPerSec;
 
@@ -23,6 +22,6 @@ public interface SwerveModuleIO {
     default void updateInputs(SwerveModuleIOInputs inputs) {
     }
 
-    default void drive(double velocityMetersPerSec,double targetSteerAngle) {
+    default void setSpeeds(double leftPower,double rightPower) {
     }
 }

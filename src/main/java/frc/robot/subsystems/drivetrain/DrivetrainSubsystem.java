@@ -9,6 +9,8 @@ import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.sim.SimModelData;
 
+import static frc.robot.Constants.*;
+
 import org.littletonrobotics.junction.Logger;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -38,10 +40,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         this.gyroIO = gyroIO;
 
         this.swerveModules = new SwerveModule[] {
-                new SwerveModule("FrontLeftModule", frontLeftModuleIO),
-                new SwerveModule("FrontRightModule", frontRightModuleIO),
-                new SwerveModule("BackLeftModule", backLeftModuleIO),
-                new SwerveModule("BackRightModule", backRightModuleIO)
+                new SwerveModule("FrontLeftModule", frontLeftModuleIO,NORTH_WEST),
+                new SwerveModule("FrontRightModule", frontRightModuleIO,NORTH_EAST),
+                new SwerveModule("BackLeftModule", backLeftModuleIO,SOUTH_WEST),
+                new SwerveModule("BackRightModule", backRightModuleIO,SOUTH_EAST)
         };
 
         modulePositions = new SwerveModulePosition[swerveModules.length];
