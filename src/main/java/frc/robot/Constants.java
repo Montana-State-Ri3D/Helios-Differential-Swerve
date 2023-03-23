@@ -30,7 +30,7 @@ public final class Constants {
     public static final double DRIVE_RADIO = 6.46875;
     public static final double STEER_RADIO = 9.2;
 
-    public static final double MOTOR_FREE_SPEED = 4700;
+    public static final double MOTOR_FREE_SPEED = 5676;
 
     public static final double WHEEL_NOMINAL_DIAMETER_METERS = Units.inchesToMeters(4.0);
     public static final double TREADWEAR = Units.inchesToMeters(0.0);

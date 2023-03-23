@@ -23,6 +23,8 @@ public class Robot extends LoggedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public static boolean isEnabled;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -62,7 +64,9 @@ public class Robot extends LoggedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    isEnabled = false;
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -77,7 +81,9 @@ public class Robot extends LoggedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    isEnabled = true;
+  }
 
   @Override
   public void teleopInit() {
@@ -92,7 +98,9 @@ public class Robot extends LoggedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    isEnabled = true;
+  }
 
   @Override
   public void testInit() {

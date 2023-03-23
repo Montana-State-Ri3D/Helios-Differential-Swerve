@@ -19,9 +19,6 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
     private final RelativeEncoder lefEncoder;
     private final RelativeEncoder righEncoder;
 
-    private final double driveRadio = 0.0;
-    private final double steerRadio = 0.0;
-
 
     public SwerveModuleIOJuno(
             int leftMotorID,

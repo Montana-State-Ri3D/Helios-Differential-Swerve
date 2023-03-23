@@ -25,12 +25,7 @@ public class RobotContainer {
   private RobotIdentity indetity;
 
    // Creating Controlers
-   @SuppressWarnings({ "unused" })
    private final CommandXboxController driveController = new CommandXboxController(DRIVE_CONTROLLER_PORT);
-   @SuppressWarnings({ "unused" })
-   private final CommandXboxController operatorController = new CommandXboxController(OPERATOR_CONTROLLER_PORT);
-   @SuppressWarnings({ "unused" })
-   private final CommandXboxController testController = new CommandXboxController(TEST_CONTROLLER_PORT);
 
   public RobotContainer(RobotIdentity indetity) {
     this.indetity = indetity;
