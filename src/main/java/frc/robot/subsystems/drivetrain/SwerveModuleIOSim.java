@@ -13,8 +13,6 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     // the wheels and the carpet. Function may be added down the line to dynamically
     // adjust this value in the field.
 
-    private final EncoderSim steerEncoder;
-
     private final DCMotor leftMotor;
     private final DCMotor rightMotor;
 
@@ -32,8 +30,6 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         rightMotor = DCMotor.getNEO(1);
         leftMotorSim = new DCMotorSim(leftMotor, 1.0, momentjKgMetersSquared);
         rightMotorSim = new DCMotorSim(rightMotor, 1.0, momentjKgMetersSquared);
-
-        steerEncoder = EncoderSim.createForIndex(1);
     }
 
     @Override
@@ -42,26 +38,23 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         leftMotorSim.update(kDt);
         rightMotorSim.update(kDt);
 
-        steerEncoder.setDistance((leftMotorSim.getAngularPositionRad() - rightMotorSim.getAngularPositionRad()) / 2.0);
-        steerEncoder.setRate(
-                (leftMotorSim.getAngularVelocityRadPerSec() - rightMotorSim.getAngularVelocityRadPerSec()) / 2.0);
-
         inputs.leftAngleRad = leftMotorSim.getAngularPositionRad();
         inputs.leftAngularVelocityRadPerSec = leftMotorSim.getAngularVelocityRadPerSec();
         inputs.leftAppliedPower = leftPower;
         inputs.leftCurrentDrawAmps = leftMotorSim.getCurrentDrawAmps();
 
-        inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getDistance());
-        inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getRate());
-
-        inputs.wheelAngalRad = (leftMotorSim.getAngularPositionRad() + rightMotorSim.getAngularPositionRad()) / 2.0;
-        inputs.wheelAngularVelocityRadPerSec = (leftMotorSim.getAngularVelocityRadPerSec()
-                + rightMotorSim.getAngularVelocityRadPerSec()) / 2.0;
-
         inputs.rightAngleRad = rightMotorSim.getAngularPositionRad();
         inputs.rightAngularVelocityRadPerSec = rightMotorSim.getAngularVelocityRadPerSec();
         inputs.rightAppliedPower = rightPower;
-        inputs.rightCurrentDrawAmps = rightMotorSim.getCurrentDrawAmps();
+        inputs.rightCurrentDrawAmps = rightMotorSim.getCurrentDrawAmps();        
+
+        inputs.absoluteAngleRad = (leftMotorSim.getAngularPositionRad()/STEER_RADIO + rightMotorSim.getAngularPositionRad()/STEER_RADIO)/2.0;
+        inputs.absoluteAngularVelocityRadPerSec = (leftMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO + rightMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO)/2.0;
+
+        inputs.wheelAngalRad = (leftMotorSim.getAngularPositionRad()/DRIVE_RADIO - rightMotorSim.getAngularPositionRad()/DRIVE_RADIO)/2.0;
+        inputs.wheelAngularVelocityRadPerSec = (leftMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO - rightMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO)/2.0;
+        inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
+        inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
     }
 
     @Override
@@ -71,14 +64,14 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
             this.leftPower = leftPower;
             this.rightPower = rightPower;
 
-            rightMotorSim.setInput(rightPower);
-            leftMotorSim.setInput(leftPower);
+            rightMotorSim.setInputVoltage(rightPower);
+            leftMotorSim.setInputVoltage(leftPower);
         } else {
             this.leftPower = 0;
             this.rightPower = 0;
 
-            rightMotorSim.setInput(0);
-            leftMotorSim.setInput(0);
+            rightMotorSim.setInputVoltage(0);
+            leftMotorSim.setInputVoltage(0);
         }
 
     }

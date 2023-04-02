@@ -14,7 +14,7 @@ import static frc.robot.Constants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    private final double maxTranslationalVelocityMetersPerSec = MOTOR_FREE_SPEED/DRIVE_RADIO;
+    private final double maxTranslationalVelocityMetersPerSec = TRANSLATIONAN_FREE_SPEED;
     private final double maxAngularVelocityRadPerSec;
 
     private final GyroIO gyroIO;

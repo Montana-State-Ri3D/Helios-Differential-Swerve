@@ -14,6 +14,8 @@ public interface SwerveModuleIO {
         public double absoluteAngularVelocityRadPerSec;
         public double wheelAngalRad;
         public double wheelAngularVelocityRadPerSec;
+        public double wheelSpeedMPerSec;
+        public double wheelDistanceM;
 
         public double rightAngleRad;
         public double rightAngularVelocityRadPerSec;

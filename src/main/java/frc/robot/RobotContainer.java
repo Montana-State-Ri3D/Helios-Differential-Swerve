@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DefaultDrivetrainCommand;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
+import frc.robot.utility.ControllerHelper;
 import frc.robot.utility.RobotIdentity;
 import frc.robot.utility.SubsystemFactory;
 
@@ -37,15 +38,17 @@ public class RobotContainer {
     drivetrainSubsystem = SubsystemFactory.createDrivetrain(indetity);
   }
   private void createCommands(){
+    ControllerHelper driverHelper = new ControllerHelper();
+
     defaultDrivetrainCommand = new DefaultDrivetrainCommand(drivetrainSubsystem,
-    () -> -driveController.getLeftY() * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
-    () -> -driveController.getLeftX() * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
-    () -> -driveController.getRightX() * drivetrainSubsystem.getMaxAngularVelocityRadPerSec());
+    () -> driverHelper.modifyAxis(-driveController.getLeftY()) * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
+    () -> driverHelper.modifyAxis(-driveController.getLeftX()) * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
+    () -> driverHelper.modifyAxis(-driveController.getRightX()) * drivetrainSubsystem.getMaxAngularVelocityRadPerSec());
     
     drivetrainSubsystem.setDefaultCommand(defaultDrivetrainCommand);
 
 
-  }
+  } 
   private void configureBindings() {
     driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
 

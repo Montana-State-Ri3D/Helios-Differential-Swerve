@@ -87,8 +87,7 @@ public class SwerveModule {
         // sets the next reference / setpoint.
         swerveControlLoop.setNextR(reference);
         // updates the kalman filter with new data points.
-        swerveControlLoop.correct(VecBuilder.fill(getModuleAngle(), getAzimuthAngularVelocity(),
-                getWheelAngularVelocity()));
+        swerveControlLoop.correct(VecBuilder.fill(inputs.absoluteAngleRad, inputs.absoluteAngularVelocityRadPerSec,inputs.wheelAngularVelocityRadPerSec));
         // predict step of kalman filter.
         predict();
 
@@ -105,7 +104,7 @@ public class SwerveModule {
 
     public SwerveModulePosition getCurrentPosition() {
         return new SwerveModulePosition(
-                getWheelDistanceTraveled(),
+                inputs.wheelDistanceM,
                 new Rotation2d(inputs.absoluteAngleRad));
     }
 
@@ -126,21 +125,6 @@ public class SwerveModule {
         swerveControlLoop.getObserver().predict(u, kDt);
     }
 
-    private double getModuleAngle() {
-        return inputs.absoluteAngleRad;
-    }
-
-    private double getWheelDistanceTraveled() {
-        return (inputs.leftAngleRad - inputs.rightAngleRad) / (2.0 * DRIVE_RADIO * WHEEL_DIAMETER_METERS);
-    }
-
-    private double getAzimuthAngularVelocity() {
-        return (inputs.absoluteAngularVelocityRadPerSec / STEER_RADIO);
-    }
-
-    private double getWheelAngularVelocity() {
-        return ( inputs.wheelAngularVelocityRadPerSec/ DRIVE_RADIO);
-    }
 
     private void setPowers(double leftPower, double rightPower) {
         io.setSpeeds(leftPower / VOLTAGE, rightPower / VOLTAGE);
@@ -175,7 +159,7 @@ public class SwerveModule {
      */
     private Matrix<N3, N1> wrapAngle(Matrix<N3, N1> reference, Matrix<N3, N1> xHat, double minAngle,
             double maxAngle) {
-        double angleError = reference.get(0, 0) - getModuleAngle();
+        double angleError = reference.get(0, 0) - inputs.absoluteAngleRad;
         double positionError = MathUtil.inputModulus(angleError, minAngle, maxAngle);
         Matrix<N3, N1> error = reference.minus(xHat);
         return VecBuilder.fill(positionError, error.get(1, 0), error.get(2, 0));

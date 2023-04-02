@@ -27,8 +27,10 @@ public final class Constants {
 
     public static final int PDP_CAN_ID = 0;
 
-    public static final double DRIVE_RADIO = 6.46875;
-    public static final double STEER_RADIO = 9.2;
+    public static final double DRIVE_RADIO = (11.0/84.0)*(54.0/12.0)*(15.0/45.0);
+    public static final double STEER_RADIO = (11.0/84.0);
+
+    public static final double TRANSLATIONAN_FREE_SPEED = 5.9436;
 
     public static final double MOTOR_FREE_SPEED = 5676;
 
