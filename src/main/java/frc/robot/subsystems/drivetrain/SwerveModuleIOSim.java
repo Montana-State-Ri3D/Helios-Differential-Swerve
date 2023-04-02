@@ -2,7 +2,6 @@ package frc.robot.subsystems.drivetrain;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
-import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import frc.robot.Robot;
 
 import static frc.robot.Constants.*;

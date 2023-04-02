@@ -41,6 +41,18 @@ public final class SubsystemFactory {
                                                                 DRIVETRAIN_BACK_RIGHT_MODULE_STEER_ENCODER,
                                                                 BACK_RIGHT_MODULE_STEER_OFFSET));
                                 break;
+                        case JUNO_TEST_MODUAL:
+                                drivetrain = new DrivetrainSubsystem(
+                                                new GyroIOSim(),
+                                                new SwerveModuleIOJuno(
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_DRIVE_MOTOR,
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_STEER_MOTOR,
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_STEER_ENCODER,
+                                                                FRONT_LEFT_MODULE_STEER_OFFSET),
+                                                new SwerveModuleIOSim(),
+                                                new SwerveModuleIOSim(),
+                                                new SwerveModuleIOSim());
+                                break;
                         case SIMULATION:
                                 drivetrain = new DrivetrainSubsystem(
                                                 new GyroIOSim(),

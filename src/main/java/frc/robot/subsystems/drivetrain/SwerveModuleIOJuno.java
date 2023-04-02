@@ -6,6 +6,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.util.Units;
+
+import static frc.robot.Constants.*;
+
 public class SwerveModuleIOJuno implements SwerveModuleIO {
     // This value accounts for the wearing down of the tread over the course of a
     // competition, as well as the "squish factor" between
@@ -61,6 +65,11 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
 
         inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getPosition());
         inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getVelocity());
+
+        inputs.wheelAngalRad = Units.degreesToRadians(steerEncoder.getAbsolutePosition());
+        inputs.wheelAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
+        inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
+        inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
 
         inputs.rightAngleRad = righEncoder.getPosition();
         inputs.rightAngularVelocityRadPerSec = righEncoder.getVelocity();

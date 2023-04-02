@@ -65,7 +65,7 @@ public final class Constants {
 
     public static final double VOLTAGE = 12;
 
-    public static final double FEED_FORWARD =VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
+    public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
     public static final double INERTIA_WHEEL = 0.005;
     public static final double INERTIA_STEER = 0.004;
