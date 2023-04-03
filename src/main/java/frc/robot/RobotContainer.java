@@ -25,8 +25,8 @@ public class RobotContainer {
 
   private RobotIdentity indetity;
 
-   // Creating Controlers
-   private final CommandXboxController driveController = new CommandXboxController(DRIVE_CONTROLLER_PORT);
+  // Creating Controlers
+  private final CommandXboxController driveController = new CommandXboxController(DRIVE_CONTROLLER_PORT);
 
   public RobotContainer(RobotIdentity indetity) {
     this.indetity = indetity;
@@ -34,26 +34,40 @@ public class RobotContainer {
     createCommands();
     configureBindings();
   }
-  private void createSubsystems(){
+
+  private void createSubsystems() {
     drivetrainSubsystem = SubsystemFactory.createDrivetrain(indetity);
   }
-  private void createCommands(){
+
+  private void createCommands() {
     ControllerHelper driverHelper = new ControllerHelper();
 
-    defaultDrivetrainCommand = new DefaultDrivetrainCommand(drivetrainSubsystem,
-    () -> driverHelper.modifyAxis(-driveController.getLeftY()) * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
-    () -> driverHelper.modifyAxis(-driveController.getLeftX()) * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
-    () -> driverHelper.modifyAxis(-driveController.getRightX()) * drivetrainSubsystem.getMaxAngularVelocityRadPerSec());
-    
+    if (driveController.getHID().isConnected()) {
+      defaultDrivetrainCommand = new DefaultDrivetrainCommand(drivetrainSubsystem,
+          () -> driverHelper.modifyAxis(-driveController.getLeftY())
+              * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
+          () -> driverHelper.modifyAxis(-driveController.getLeftX())
+              * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
+          () -> driverHelper.modifyAxis(-driveController.getRightX())
+              * drivetrainSubsystem.getMaxAngularVelocityRadPerSec());
+    } else {
+      defaultDrivetrainCommand = new DefaultDrivetrainCommand(drivetrainSubsystem, () -> 0.0, () -> 0.0, () -> 0.0);
+    }
     drivetrainSubsystem.setDefaultCommand(defaultDrivetrainCommand);
 
+  }
 
-  } 
   private void configureBindings() {
-    driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
+    if (driveController.getHID().isConnected()) {
+      driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
 
-    driveController.back().onTrue(new InstantCommand(
-      () -> drivetrainSubsystem.resetPose(new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(), new Rotation2d()))));
+      driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
+
+      driveController.back().onTrue(new InstantCommand(
+          () -> drivetrainSubsystem.resetPose(
+              new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),
+                  new Rotation2d()))));
+    }
 
   }
 

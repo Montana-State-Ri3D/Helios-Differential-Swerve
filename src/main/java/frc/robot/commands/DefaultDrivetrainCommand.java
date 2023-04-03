@@ -12,6 +12,7 @@ public class DefaultDrivetrainCommand extends CommandBase {
     private final DoubleSupplier xVelocitySupplier;
     private final DoubleSupplier yVelocitySupplier;
     private final DoubleSupplier angularVelocitySupplier;
+    private boolean isFieldOriented = false;
 
     public DefaultDrivetrainCommand(DrivetrainSubsystem drivetrain,
             DoubleSupplier xVelocitySupplier,
@@ -31,18 +32,26 @@ public class DefaultDrivetrainCommand extends CommandBase {
 
     @Override
     public void execute() {
-        /*
-         * ChassisSpeeds chassisVelocity = ChassisSpeeds.fromFieldRelativeSpeeds(
-         * xVelocitySupplier.getAsDouble(),
-         * yVelocitySupplier.getAsDouble(),
-         * angularVelocitySupplier.getAsDouble(),
-         * drivetrain.getPose().getRotation()
-         */
-        ChassisSpeeds chassisVelocity = new ChassisSpeeds(
-                xVelocitySupplier.getAsDouble(),
-                yVelocitySupplier.getAsDouble(),
-                angularVelocitySupplier.getAsDouble());
+        ChassisSpeeds chassisVelocity;
+        if (isFieldOriented) {
+            chassisVelocity = ChassisSpeeds.fromFieldRelativeSpeeds(
+                    xVelocitySupplier.getAsDouble(),
+                    yVelocitySupplier.getAsDouble(),
+                    angularVelocitySupplier.getAsDouble(),
+                    drivetrain.getPose().getRotation());
+        } else {
+            chassisVelocity = new ChassisSpeeds(
+                    xVelocitySupplier.getAsDouble(),
+                    yVelocitySupplier.getAsDouble(),
+                    angularVelocitySupplier.getAsDouble());
+        }
         drivetrain.drive(chassisVelocity);
+    }
+    public void fieldOriented(boolean isFieldOriented){
+        this.isFieldOriented = isFieldOriented;
+    }
+    public void toggleFieldOriented(){
+        this.isFieldOriented = !isFieldOriented;
     }
 
     @Override
