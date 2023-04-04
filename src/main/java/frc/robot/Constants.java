@@ -61,7 +61,7 @@ public final class Constants {
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(0);
 
     // update rate of our modules 5ms.
-    public static final double kDt = 0.02;
+    public static final double kDt = 0.005;
 
     public static final double VOLTAGE = 12;
 

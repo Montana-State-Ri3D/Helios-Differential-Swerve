@@ -2,6 +2,7 @@ package frc.robot.subsystems.drivetrain;
 
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -22,6 +23,7 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
     private final CANCoder steerEncoder;
     private final RelativeEncoder lefEncoder;
     private final RelativeEncoder righEncoder;
+    private final double offset;
 
 
     public SwerveModuleIOJuno(
@@ -34,15 +36,19 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
         rightMotor = new CANSparkMax(rightMotorID, MotorType.kBrushless);
         steerEncoder = new CANCoder(steerEncoderID);
 
+        this.offset = offset;
+
         this.lefEncoder = leftMotor.getEncoder();
         this.righEncoder = rightMotor.getEncoder();
 
         leftMotor.setSmartCurrentLimit(40);
         rightMotor.setSmartCurrentLimit(40);
 
-        steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+        leftMotor.setControlFramePeriodMs((int)kDt*1000);
+        rightMotor.setControlFramePeriodMs((int)kDt*1000);
+        steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
-        steerEncoder.configMagnetOffset(Math.toDegrees(offset));
+        steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
 
         // Workaround so that we always read a valid angle from the steer encoder when
         // setting up the steer motor.
@@ -63,7 +69,7 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
         inputs.leftAppliedPower = leftMotor.getAppliedOutput();
         inputs.leftCurrentDrawAmps = leftMotor.getOutputCurrent();
 
-        inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getPosition());
+        inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getPosition())+offset;
         inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getVelocity());
 
         inputs.wheelAngalRad = Units.degreesToRadians(steerEncoder.getAbsolutePosition());
@@ -78,8 +84,8 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
     }
 
     @Override
-    public void setSpeeds(double leftPower, double rightPower) {
-        leftMotor.set(leftPower);
-        rightMotor.set(rightPower);
+    public void setVoltage(double leftPower, double rightPower) {
+        leftMotor.setVoltage(leftPower);
+        rightMotor.setVoltage(rightPower);
     }
 }

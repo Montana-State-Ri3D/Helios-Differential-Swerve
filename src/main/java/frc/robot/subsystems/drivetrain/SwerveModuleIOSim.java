@@ -27,8 +27,8 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
 
         leftMotor = DCMotor.getNEO(1);
         rightMotor = DCMotor.getNEO(1);
-        leftMotorSim = new DCMotorSim(leftMotor, 1.0, momentjKgMetersSquared);
-        rightMotorSim = new DCMotorSim(rightMotor, 1.0, momentjKgMetersSquared);
+        leftMotorSim = new DCMotorSim(leftMotor, 10.0, momentjKgMetersSquared);
+        rightMotorSim = new DCMotorSim(rightMotor, 10.0, momentjKgMetersSquared);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     }
 
     @Override
-    public void setSpeeds(double leftPower, double rightPower) {
+    public void setVoltage(double leftPower, double rightPower) {
 
         if (Robot.isEnabled) {
             this.leftPower = leftPower;
