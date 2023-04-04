@@ -11,9 +11,10 @@ public class AdvantageKitHelper {
     /**
      * setupLogger - Configure AdvantageKit logging for the robot.
      * 
-    * @param isCompetition - Boolean flag telling whether we are running in competition or practice mode
+    * @param doNetworkLogging - Boolean flag telling whether to log to the NetworkTables
+    * @return The instance of the logger
     */
-    public static Logger setupLogger(boolean isCompetition) {
+    public static Logger setupLogger(boolean doNetworkLogging) {
         Logger logger = Logger.getInstance();
 
         // If this is a physical robot (with a Rio) then we can log to a USB drive.
@@ -22,7 +23,7 @@ public class AdvantageKitHelper {
         }
 
         // We don't add the NT4 receiver in competition matches to reduce network traffic.
-        if (!isCompetition) {
+        if (doNetworkLogging) {
             logger.addDataReceiver(new NT4Publisher());
         }
 

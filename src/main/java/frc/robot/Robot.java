@@ -42,7 +42,7 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
 
-    Logger logger = AdvantageKitHelper.setupLogger(false);
+    Logger logger = AdvantageKitHelper.setupLogger(true);
 
     logger.recordMetadata("RobotIdentity", RobotIdentity.getIdentity().toString());
 
