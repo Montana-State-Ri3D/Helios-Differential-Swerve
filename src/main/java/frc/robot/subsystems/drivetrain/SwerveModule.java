@@ -92,7 +92,7 @@ public class SwerveModule {
                 // predict step of kalman filter.
                 predict();
 
-                setPowers(getLeftNextVoltage(), getRightNextVoltage());
+                setPowers(getBottomNextVoltage(), getTopNextVoltage());
         }
 
         public void setTargetState(SwerveModuleState state) {
@@ -127,8 +127,8 @@ public class SwerveModule {
                 swerveControlLoop.getObserver().predict(u, kDt);
         }
 
-        private void setPowers(double leftPower, double rightPower) {
-                io.setVoltage(leftPower, rightPower);
+        private void setPowers(double bottomPower, double topPower) {
+                io.setVoltage(bottomPower, topPower);
         }
 
         /**
@@ -136,13 +136,13 @@ public class SwerveModule {
          * law is slightly different as we need to be continuous. Check method
          * predict() for calculations.
          *
-         * @return left wanted voltage
+         * @return bottom wanted voltage
          */
-        private double getLeftNextVoltage() {
+        private double getBottomNextVoltage() {
                 return u.get(0, 0);
         }
 
-        private double getRightNextVoltage() {
+        private double getTopNextVoltage() {
                 return u.get(1, 0);
         }
 

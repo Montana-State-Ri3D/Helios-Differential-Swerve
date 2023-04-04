@@ -12,65 +12,65 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     // the wheels and the carpet. Function may be added down the line to dynamically
     // adjust this value in the field.
 
-    private final DCMotor leftMotor;
-    private final DCMotor rightMotor;
+    private final DCMotor bottomMotor;
+    private final DCMotor topMotor;
 
-    private double leftPower;
-    private double rightPower;
+    private double bottomPower;
+    private double topPower;
 
-    private final DCMotorSim leftMotorSim;
-    private final DCMotorSim rightMotorSim;
+    private final DCMotorSim bottomMotorSim;
+    private final DCMotorSim topMotorSim;
 
     private final double momentjKgMetersSquared = 10;
 
     public SwerveModuleIOSim() {
 
-        leftMotor = DCMotor.getNEO(1);
-        rightMotor = DCMotor.getNEO(1);
-        leftMotorSim = new DCMotorSim(leftMotor, 10.0, momentjKgMetersSquared);
-        rightMotorSim = new DCMotorSim(rightMotor, 10.0, momentjKgMetersSquared);
+        bottomMotor = DCMotor.getNEO(1);
+        topMotor = DCMotor.getNEO(1);
+        bottomMotorSim = new DCMotorSim(bottomMotor, 10.0, momentjKgMetersSquared);
+        topMotorSim = new DCMotorSim(topMotor, 10.0, momentjKgMetersSquared);
     }
 
     @Override
     public void updateInputs(SwerveModuleIOInputs inputs) {
 
-        leftMotorSim.update(kDt);
-        rightMotorSim.update(kDt);
+        bottomMotorSim.update(kDt);
+        topMotorSim.update(kDt);
 
-        inputs.leftAngleRad = leftMotorSim.getAngularPositionRad();
-        inputs.leftAngularVelocityRadPerSec = leftMotorSim.getAngularVelocityRadPerSec();
-        inputs.leftAppliedPower = leftPower;
-        inputs.leftCurrentDrawAmps = leftMotorSim.getCurrentDrawAmps();
+        inputs.bottomAngleRad = bottomMotorSim.getAngularPositionRad();
+        inputs.bottomAngularVelocityRadPerSec = bottomMotorSim.getAngularVelocityRadPerSec();
+        inputs.bottomAppliedPower = bottomPower;
+        inputs.bottomCurrentDrawAmps = bottomMotorSim.getCurrentDrawAmps();
 
-        inputs.rightAngleRad = rightMotorSim.getAngularPositionRad();
-        inputs.rightAngularVelocityRadPerSec = rightMotorSim.getAngularVelocityRadPerSec();
-        inputs.rightAppliedPower = rightPower;
-        inputs.rightCurrentDrawAmps = rightMotorSim.getCurrentDrawAmps();        
+        inputs.topAngleRad = topMotorSim.getAngularPositionRad();
+        inputs.topAngularVelocityRadPerSec = topMotorSim.getAngularVelocityRadPerSec();
+        inputs.topAppliedPower = topPower;
+        inputs.topCurrentDrawAmps = topMotorSim.getCurrentDrawAmps();        
 
-        inputs.absoluteAngleRad = (leftMotorSim.getAngularPositionRad()/STEER_RADIO + rightMotorSim.getAngularPositionRad()/STEER_RADIO)/2.0;
-        inputs.absoluteAngularVelocityRadPerSec = (leftMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO + rightMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO)/2.0;
+        inputs.absoluteAngleRad = (bottomMotorSim.getAngularPositionRad()/STEER_RADIO + topMotorSim.getAngularPositionRad()/STEER_RADIO)/2.0;
+        inputs.absoluteAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO + topMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO)/2.0;
 
-        inputs.wheelAngalRad = (leftMotorSim.getAngularPositionRad()/DRIVE_RADIO - rightMotorSim.getAngularPositionRad()/DRIVE_RADIO)/2.0;
-        inputs.wheelAngularVelocityRadPerSec = (leftMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO - rightMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO)/2.0;
+        inputs.wheelAngalRad = (bottomMotorSim.getAngularPositionRad()/DRIVE_RADIO - topMotorSim.getAngularPositionRad()/DRIVE_RADIO)/2.0;
+        inputs.wheelAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO - topMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO)/2.0;
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
     }
 
     @Override
-    public void setVoltage(double leftPower, double rightPower) {
+    public void setVoltage(double bottomPower, double topPower) {
 
         if (Robot.isEnabled) {
-            this.leftPower = leftPower;
-            this.rightPower = rightPower;
+            this.bottomPower = bottomPower;
+            this.topPower = topPower;
 
-            rightMotorSim.setInputVoltage(rightPower);
-            leftMotorSim.setInputVoltage(leftPower);
+            topMotorSim.setInputVoltage(topPower);
+            bottomMotorSim.setInputVoltage(bottomPower);
         } else {
-            this.leftPower = 0;
-            this.rightPower = 0;
+            this.bottomPower = 0;
+            this.topPower = 0;
 
-            rightMotorSim.setInputVoltage(0);
-            leftMotorSim.setInputVoltage(0);
+            topMotorSim.setInputVoltage(0);
+            bottomMotorSim.setInputVoltage(0);
         }
 
     }

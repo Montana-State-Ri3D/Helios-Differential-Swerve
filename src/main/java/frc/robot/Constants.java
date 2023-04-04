@@ -38,15 +38,15 @@ public final class Constants {
     public static final double TREADWEAR = Units.inchesToMeters(0.0);
     public static final double WHEEL_DIAMETER_METERS = WHEEL_NOMINAL_DIAMETER_METERS - TREADWEAR;
 
-    public static final int DRIVETRAIN_FRONT_LEFT_MODULE_DRIVE_MOTOR = 1;
-    public static final int DRIVETRAIN_FRONT_RIGHT_MODULE_DRIVE_MOTOR = 2;
-    public static final int DRIVETRAIN_BACK_LEFT_MODULE_DRIVE_MOTOR = 3;
-    public static final int DRIVETRAIN_BACK_RIGHT_MODULE_DRIVE_MOTOR = 4;
+    public static final int DRIVETRAIN_FRONT_LEFT_MODULE_BOTTOM = 1;
+    public static final int DRIVETRAIN_FRONT_RIGHT_MODULE_BOTTOM = 2;
+    public static final int DRIVETRAIN_BACK_LEFT_MODULE_BOTTOM = 3;
+    public static final int DRIVETRAIN_BACK_RIGHT_MODULE_BOTTOM = 4;
 
-    public static final int DRIVETRAIN_FRONT_LEFT_MODULE_STEER_MOTOR = 5;
-    public static final int DRIVETRAIN_FRONT_RIGHT_MODULE_STEER_MOTOR = 6;
-    public static final int DRIVETRAIN_BACK_LEFT_MODULE_STEER_MOTOR = 7;
-    public static final int DRIVETRAIN_BACK_RIGHT_MODULE_STEER_MOTOR = 8;
+    public static final int DRIVETRAIN_FRONT_LEFT_MODULE_TOP = 5;
+    public static final int DRIVETRAIN_FRONT_RIGHT_MODULE_TOP = 6;
+    public static final int DRIVETRAIN_BACK_LEFT_MODULE_TOP = 7;
+    public static final int DRIVETRAIN_BACK_RIGHT_MODULE_TOP = 8;
 
     public static final int DRIVETRAIN_FRONT_LEFT_MODULE_STEER_ENCODER = 9;
     public static final int DRIVETRAIN_FRONT_RIGHT_MODULE_STEER_ENCODER = 10;
@@ -61,7 +61,7 @@ public final class Constants {
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(0);
 
     // update rate of our modules 5ms.
-    public static final double kDt = 0.005;
+    public static final double kDt = 0.02;
 
     public static final double VOLTAGE = 12;
 
@@ -91,53 +91,20 @@ public final class Constants {
     public static final double Q_AZIMUTH = 0.08; // radians
     public static final double Q_WHEEL_ANG_VELOCITY = 5; // radians per sec
 
-    public static final double CONTROL_EFFORT = .8;
+    public static final double CONTROL_EFFORT = 0.8;
 
             // Size of the robot chassis in meters
             public static final double WIDTH = 0.6223; // meters
             public static final double LENGTH = 0.6223; // meters
     
-            /**
-             * Swerve modules are on four corners of robot:
-             *
-             * NW  <- Width of robot ->  NE
-             *             / \
-             *              |
-             *        Length of robot
-             *              |
-             *             \ /
-             *  SW                       SE
-             */
-    
             // Distance of swerve modules from center of robot
-            public static final double SWERVE_NS_POS = LENGTH / 2.0;
-            public static final double SWERVE_WE_POS = WIDTH / 2.0;
-    
-            /**
-             *
-             * Coordinate system is wacky:
-             *
-             * (X, Y):
-             *   X is N or S, N is +
-             *   Y is W or E, W is +
-             *
-             *   NW (+,+)  NE (+,-)
-             *
-             *   SW (-,+)  SE (-,-)
-             *
-             * We go counter-counter clockwise starting at NW of chassis:
-             *
-             *  NW, SW, SE, NE
-             *
-             * Note: when robot is flipped over, this is clockwise.
-             *
-             */
+            public static final double SWERVE_FB_POS = LENGTH / 2.0;
+            public static final double SWERVE_LR_POS = WIDTH / 2.0;
     
             // Position vectors for the swerve module kinematics
             // i.e. location of each swerve module from center of robot
-            // see coordinate system above to understand signs of vector coordinates
-            public static final Translation2d NORTH_WEST = new Translation2d( SWERVE_NS_POS, SWERVE_WE_POS ); // +,+
-            public static final Translation2d SOUTH_WEST = new Translation2d( -SWERVE_NS_POS, SWERVE_WE_POS ); // -,+
-            public static final Translation2d SOUTH_EAST = new Translation2d( -SWERVE_NS_POS, -SWERVE_WE_POS ); // -,-
-            public static final Translation2d NORTH_EAST = new Translation2d( SWERVE_NS_POS, -SWERVE_WE_POS ); // +,-
+            public static final Translation2d FROUNT_LEFT = new Translation2d( SWERVE_FB_POS, SWERVE_LR_POS ); // +,+
+            public static final Translation2d BACK_LEFT = new Translation2d( -SWERVE_FB_POS, SWERVE_LR_POS ); // -,+
+            public static final Translation2d BACK_RIGHT = new Translation2d( -SWERVE_FB_POS, -SWERVE_LR_POS ); // -,-
+            public static final Translation2d FROUNT_RIGHT = new Translation2d( SWERVE_FB_POS, -SWERVE_LR_POS ); // +,-
 }

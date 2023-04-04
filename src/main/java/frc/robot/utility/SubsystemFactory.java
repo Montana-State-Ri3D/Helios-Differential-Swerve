@@ -21,23 +21,23 @@ public final class SubsystemFactory {
                                 drivetrain = new DrivetrainSubsystem(
                                                 new GyroIOPigeon2(DRIVETRAIN_PIGEON_ID),
                                                 new SwerveModuleIOJuno(
-                                                                DRIVETRAIN_FRONT_LEFT_MODULE_DRIVE_MOTOR,
-                                                                DRIVETRAIN_FRONT_LEFT_MODULE_STEER_MOTOR,
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_BOTTOM,
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_TOP,
                                                                 DRIVETRAIN_FRONT_LEFT_MODULE_STEER_ENCODER,
                                                                 FRONT_LEFT_MODULE_STEER_OFFSET),
                                                 new SwerveModuleIOJuno(
-                                                                DRIVETRAIN_FRONT_RIGHT_MODULE_DRIVE_MOTOR,
-                                                                DRIVETRAIN_FRONT_RIGHT_MODULE_STEER_MOTOR,
+                                                                DRIVETRAIN_FRONT_RIGHT_MODULE_BOTTOM,
+                                                                DRIVETRAIN_FRONT_RIGHT_MODULE_TOP,
                                                                 DRIVETRAIN_FRONT_RIGHT_MODULE_STEER_ENCODER,
                                                                 FRONT_RIGHT_MODULE_STEER_OFFSET),
                                                 new SwerveModuleIOJuno(
-                                                                DRIVETRAIN_BACK_LEFT_MODULE_DRIVE_MOTOR,
-                                                                DRIVETRAIN_BACK_LEFT_MODULE_STEER_MOTOR,
+                                                                DRIVETRAIN_BACK_LEFT_MODULE_BOTTOM,
+                                                                DRIVETRAIN_BACK_LEFT_MODULE_TOP,
                                                                 DRIVETRAIN_BACK_LEFT_MODULE_STEER_ENCODER,
                                                                 BACK_LEFT_MODULE_STEER_OFFSET),
                                                 new SwerveModuleIOJuno(
-                                                                DRIVETRAIN_BACK_RIGHT_MODULE_DRIVE_MOTOR,
-                                                                DRIVETRAIN_BACK_RIGHT_MODULE_STEER_MOTOR,
+                                                                DRIVETRAIN_BACK_RIGHT_MODULE_BOTTOM,
+                                                                DRIVETRAIN_BACK_RIGHT_MODULE_TOP,
                                                                 DRIVETRAIN_BACK_RIGHT_MODULE_STEER_ENCODER,
                                                                 BACK_RIGHT_MODULE_STEER_OFFSET));
                                 break;
@@ -45,8 +45,8 @@ public final class SubsystemFactory {
                                 drivetrain = new DrivetrainSubsystem(
                                                 new GyroIOSim(),
                                                 new SwerveModuleIOJuno(
-                                                                DRIVETRAIN_FRONT_LEFT_MODULE_DRIVE_MOTOR,
-                                                                DRIVETRAIN_FRONT_LEFT_MODULE_STEER_MOTOR,
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_BOTTOM,
+                                                                DRIVETRAIN_FRONT_LEFT_MODULE_TOP,
                                                                 DRIVETRAIN_FRONT_LEFT_MODULE_STEER_ENCODER,
                                                                 FRONT_LEFT_MODULE_STEER_OFFSET),
                                                 new SwerveModuleIOSim(),

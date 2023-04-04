@@ -18,34 +18,34 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
     // adjust this value in the field.
 
 
-    private final CANSparkMax leftMotor;
-    private final CANSparkMax rightMotor;
+    private final CANSparkMax bottomMotor;
+    private final CANSparkMax topMotor;
     private final CANCoder steerEncoder;
-    private final RelativeEncoder lefEncoder;
-    private final RelativeEncoder righEncoder;
+    private final RelativeEncoder bottomEncoder;
+    private final RelativeEncoder topEncoder;
     private final double offset;
 
 
     public SwerveModuleIOJuno(
-            int leftMotorID,
-            int rightMotorID,
+            int bottomMotorID,
+            int topMotorID,
             int steerEncoderID,
             double offset) {
 
-        leftMotor = new CANSparkMax(leftMotorID, MotorType.kBrushless);
-        rightMotor = new CANSparkMax(rightMotorID, MotorType.kBrushless);
+        bottomMotor = new CANSparkMax(bottomMotorID, MotorType.kBrushless);
+        topMotor = new CANSparkMax(topMotorID, MotorType.kBrushless);
         steerEncoder = new CANCoder(steerEncoderID);
 
         this.offset = offset;
 
-        this.lefEncoder = leftMotor.getEncoder();
-        this.righEncoder = rightMotor.getEncoder();
+        this.bottomEncoder = bottomMotor.getEncoder();
+        this.topEncoder = topMotor.getEncoder();
 
-        leftMotor.setSmartCurrentLimit(40);
-        rightMotor.setSmartCurrentLimit(40);
+        bottomMotor.setSmartCurrentLimit(40);
+        topMotor.setSmartCurrentLimit(40);
 
-        leftMotor.setControlFramePeriodMs((int)kDt*1000);
-        rightMotor.setControlFramePeriodMs((int)kDt*1000);
+        bottomMotor.setControlFramePeriodMs((int)kDt*1000);
+        topMotor.setControlFramePeriodMs((int)kDt*1000);
         steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
         steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
@@ -64,10 +64,10 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
 
     @Override
     public void updateInputs(SwerveModuleIOInputs inputs) {
-        inputs.leftAngleRad = lefEncoder.getPosition();
-        inputs.leftAngularVelocityRadPerSec = lefEncoder.getVelocity();
-        inputs.leftAppliedPower = leftMotor.getAppliedOutput();
-        inputs.leftCurrentDrawAmps = leftMotor.getOutputCurrent();
+        inputs.bottomAngleRad = bottomEncoder.getPosition();
+        inputs.bottomAngularVelocityRadPerSec = bottomEncoder.getVelocity();
+        inputs.bottomAppliedPower = bottomMotor.getAppliedOutput();
+        inputs.bottomCurrentDrawAmps = bottomMotor.getOutputCurrent();
 
         inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getPosition())+offset;
         inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getVelocity());
@@ -77,15 +77,15 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
 
-        inputs.rightAngleRad = righEncoder.getPosition();
-        inputs.rightAngularVelocityRadPerSec = righEncoder.getVelocity();
-        inputs.rightAppliedPower = rightMotor.getAppliedOutput();
-        inputs.rightCurrentDrawAmps = rightMotor.getOutputCurrent();
+        inputs.topAngleRad = topEncoder.getPosition();
+        inputs.topAngularVelocityRadPerSec = topEncoder.getVelocity();
+        inputs.topAppliedPower = topMotor.getAppliedOutput();
+        inputs.topCurrentDrawAmps = topMotor.getOutputCurrent();
     }
 
     @Override
-    public void setVoltage(double leftPower, double rightPower) {
-        leftMotor.setVoltage(leftPower);
-        rightMotor.setVoltage(rightPower);
+    public void setVoltage(double bottomPower, double topPower) {
+        bottomMotor.setVoltage(bottomPower);
+        topMotor.setVoltage(topPower);
     }
 }

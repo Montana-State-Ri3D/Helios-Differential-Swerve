@@ -25,13 +25,10 @@ public class RobotContainer {
 
   private RobotIdentity indetity;
 
-  private Robot robot;
-
   // Creating Controlers
   private final CommandXboxController driveController = new CommandXboxController(DRIVE_CONTROLLER_PORT);
 
-  public RobotContainer(Robot robot, RobotIdentity indetity) {
-    this.robot = robot;
+  public RobotContainer(RobotIdentity indetity) {
     this.indetity = indetity;
 
     //robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);

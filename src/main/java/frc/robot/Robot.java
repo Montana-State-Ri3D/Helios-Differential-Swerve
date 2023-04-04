@@ -48,7 +48,7 @@ public class Robot extends LoggedRobot {
 
     logger.start();
     
-    m_robotContainer = new RobotContainer(this,RobotIdentity.getIdentity());
+    m_robotContainer = new RobotContainer(RobotIdentity.getIdentity());
   }
 
   /**

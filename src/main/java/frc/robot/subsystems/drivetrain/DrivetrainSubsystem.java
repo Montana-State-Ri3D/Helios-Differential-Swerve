@@ -4,7 +4,6 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.sim.SimModelData;
@@ -34,15 +33,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
         this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec
-                / Math.hypot(WIDTH / 2.0, LENGTH / 2.0);
+                / Math.hypot(SWERVE_LR_POS, SWERVE_FB_POS / 2.0);
 
         this.gyroIO = gyroIO;
 
         this.swerveModules = new SwerveModule[] {
-                new SwerveModule("FrontLeftModule", frontLeftModuleIO, NORTH_WEST),
-                new SwerveModule("FrontRightModule", frontRightModuleIO, NORTH_EAST),
-                new SwerveModule("BackLeftModule", backLeftModuleIO, SOUTH_WEST),
-                new SwerveModule("BackRightModule", backRightModuleIO, SOUTH_EAST)
+                new SwerveModule("FrontLeftModule", frontLeftModuleIO, FROUNT_LEFT),
+                new SwerveModule("FrontRightModule", frontRightModuleIO, FROUNT_RIGHT),
+                new SwerveModule("BackLeftModule", backLeftModuleIO, BACK_LEFT),
+                new SwerveModule("BackRightModule", backRightModuleIO, BACK_RIGHT)
         };
 
         modulePositions = new SwerveModulePosition[swerveModules.length];
@@ -53,13 +52,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         this.kinematics = new SwerveDriveKinematics(
                 // Front Left (+x, +y)
-                new Translation2d(LENGTH / 2.0, WIDTH / 2.0),
+                FROUNT_LEFT,
                 // Front Right (+x, -y)
-                new Translation2d(LENGTH / 2.0, -WIDTH / 2.0),
+                FROUNT_RIGHT,
                 // Back Left (-x, +y)
-                new Translation2d(-LENGTH / 2.0, WIDTH / 2.0),
+                BACK_LEFT,
                 // Back Right (-x, -y)
-                new Translation2d(-LENGTH / 2.0, -WIDTH / 2.0));
+                BACK_RIGHT);
 
         Rotation2d initialGyroAngle = new Rotation2d();
         this.odometry = new SwerveDriveOdometry(kinematics, initialGyroAngle, modulePositions);
