@@ -45,7 +45,7 @@ public class DefaultDrivetrainCommand extends CommandBase {
                     yVelocitySupplier.getAsDouble(),
                     angularVelocitySupplier.getAsDouble());
         }
-        drivetrain.drive(chassisVelocity);
+        drivetrain.setTargetChassisVelocity(chassisVelocity);
     }
     public void fieldOriented(boolean isFieldOriented){
         this.isFieldOriented = isFieldOriented;
@@ -56,6 +56,6 @@ public class DefaultDrivetrainCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(new ChassisSpeeds());
+        drivetrain.setTargetChassisVelocity(new ChassisSpeeds());
     }
 }

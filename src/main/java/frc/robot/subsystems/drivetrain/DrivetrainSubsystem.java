@@ -132,8 +132,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         SimModelData.GetInstance().updateDrivetrainData(getPose(), targetChassisVelocity);
     }
 
-    public void drive(ChassisSpeeds chassisSpeeds) {
-        this.targetChassisVelocity = chassisSpeeds;
+    public void setTargetChassisVelocity(ChassisSpeeds targetChassisVelocity) {
+        this.targetChassisVelocity = targetChassisVelocity;
     }
 
     // This should be injected via the contructor but we need it temporarily while
