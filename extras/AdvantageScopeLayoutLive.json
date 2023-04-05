@@ -46,12 +46,12 @@
           },
           "fields": [
             {
-              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/LeftAppliedPower",
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/TopAppliedPower",
               "color": "#2b66a2",
               "show": true
             },
             {
-              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/RightAppliedPower",
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/BottomAppliedPower",
               "color": "#af2437",
               "show": true
             }
@@ -141,7 +141,7 @@
         "arrangement": "0,1,2,3",
         "sizeLeftRight": 0.65,
         "sizeFrontBack": 0.65,
-        "forwardDirection": "up"
+        "forwardDirection": "right"
       },
       "title": "Curent Swerve"
     },
@@ -160,7 +160,7 @@
       ],
       "options": {
         "field": "2023",
-        "alliance": "blue",
+        "alliance": "auto",
         "robot": "Bot-Bot Strikes Back (6328)",
         "unitDistance": "meters",
         "unitRotation": "radians"
@@ -190,6 +190,50 @@
         "orientation": "blue left, red right"
       },
       "title": "Odometry"
+    },
+    {
+      "type": 1,
+      "legends": {
+        "left": {
+          "lockedRange": null,
+          "unitConversion": {
+            "type": null,
+            "factor": 1
+          },
+          "fields": [
+            {
+              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose/0",
+              "color": "#e5b31b",
+              "show": true
+            },
+            {
+              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose/1",
+              "color": "#2b66a2",
+              "show": true
+            }
+          ]
+        },
+        "discrete": {
+          "fields": []
+        },
+        "right": {
+          "lockedRange": null,
+          "unitConversion": {
+            "type": "angle",
+            "factor": 1,
+            "from": "radians",
+            "to": "degrees"
+          },
+          "fields": [
+            {
+              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose/2",
+              "color": "#af2437",
+              "show": true
+            }
+          ]
+        }
+      },
+      "title": "POS"
     },
     {
       "type": 1,

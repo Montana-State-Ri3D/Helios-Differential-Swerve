@@ -12,12 +12,13 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
+import static frc.robot.Constants.*;
 
 public final class AutoCommandFactory {
-    private static final PIDConstants AUTO_TRANSLATION_PID_CONSTANTS = new PIDConstants(2.5, 0.0, 0.0);
+    private static final PIDConstants AUTO_TRANSLATION_PID_CONSTANTS = new PIDConstants(9, 0.0, 0.0);
     private static final PIDConstants AUTO_ROTATION_PID_CONSTANTS = new PIDConstants(7.0, 0.0, 0.25);
 
-    private static PathConstraints normalConstraints = new PathConstraints(4.0, 3.0);
+    private static PathConstraints normalConstraints = new PathConstraints(TRANSLATIONAN_FREE_SPEED, 3.0);
 
     private static HashMap<String, Command> eventMap = new HashMap<>();
     private static SwerveAutoBuilder builder;
@@ -93,6 +94,16 @@ public final class AutoCommandFactory {
 
         // Return to grid and score piece
         cmd = builder.fullAuto(PathPlanner.loadPath("HighSide3Return", normalConstraints));
+        group.addCommands(cmd);
+
+        return group;
+    }
+    public static SequentialCommandGroup createDriveStraignt(){
+        SequentialCommandGroup group = new SequentialCommandGroup();
+
+        Command cmd;
+
+        cmd = builder.fullAuto(PathPlanner.loadPath("Drive Straight", normalConstraints));
         group.addCommands(cmd);
 
         return group;
