@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DefaultDrivetrainCommand;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
+import frc.robot.utility.AutoCommandChooser;
 import frc.robot.utility.ControllerHelper;
 import frc.robot.utility.RobotIdentity;
 import frc.robot.utility.SubsystemFactory;
@@ -24,6 +25,7 @@ public class RobotContainer {
   private DefaultDrivetrainCommand defaultDrivetrainCommand;
 
   private RobotIdentity indetity;
+  private AutoCommandChooser autoChooser;
 
   // Creating Controlers
   private final CommandXboxController driveController = new CommandXboxController(DRIVE_CONTROLLER_PORT);
@@ -31,10 +33,10 @@ public class RobotContainer {
   public RobotContainer(RobotIdentity indetity) {
     this.indetity = indetity;
 
-    //robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
     createSubsystems();
     createCommands();
     configureBindings();
+    setupAutoChooser();
   }
 
   private void createSubsystems() {
@@ -69,7 +71,28 @@ public class RobotContainer {
 
   }
 
-  public Command getAutonomousCommand() {
-    return null;
-  }
+  private void setupAutoChooser() {
+    autoChooser = new AutoCommandChooser();
+
+    // Register all the supported auto commands
+    autoChooser.registerDefaultCreator("Do Nothing", () -> AutoCommandFactory.createNullAuto());
+    autoChooser.registerCreator("Place Only", () -> AutoCommandFactory.createPlaceOnlyAuto());
+    autoChooser.registerCreator("Hi Place-Balance", () -> AutoCommandFactory.createMidBalanceAuto());
+    autoChooser.registerCreator("Hi Place-Exit-Balance", () -> AutoCommandFactory.createMidMobilityBalanceAuto());
+    autoChooser.registerCreator("BumpSide Place-Move", () -> AutoCommandFactory.createBumpSideAuto());
+    autoChooser.registerCreator("NoBumpSide Place-Move", () -> AutoCommandFactory.createNoBumpSide1Auto());
+    autoChooser.registerCreator("NoBumpSide Place-Move-Place", () -> AutoCommandFactory.createNoBumpSide2Auto());
+
+    // Setup the chooser in shuffleboard
+    autoChooser.setup("Driver", 0, 0, 3, 1);
+}
+
+/**
+ * Use this to pass the autonomous command to the main {@link Robot} class.
+ *
+ * @return the command to run in autonomous
+ */
+public Command getAutonomousCommand() {
+    return autoChooser.getAutonomousCommand();
+}
 }

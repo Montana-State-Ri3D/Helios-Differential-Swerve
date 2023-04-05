@@ -21,7 +21,7 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     private final DCMotorSim bottomMotorSim;
     private final DCMotorSim topMotorSim;
 
-    private final double momentjKgMetersSquared = 10;
+    private final double momentjKgMetersSquared = 0.05;
 
     public SwerveModuleIOSim() {
 

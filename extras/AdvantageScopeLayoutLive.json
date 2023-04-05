@@ -114,7 +114,7 @@
       "fields": [
         "NT:/AdvantageKit/RealOutputs/Drivetrain/DesiredModuleStates",
         "NT:/AdvantageKit/RealOutputs/Drivetrain/OptimizedModuleStates",
-        null
+        "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose/2"
       ],
       "listFields": [],
       "options": {
@@ -125,7 +125,47 @@
         "sizeFrontBack": 0.65,
         "forwardDirection": "up"
       },
-      "title": "Swerve"
+      "title": "Target Swerve"
+    },
+    {
+      "type": 9,
+      "fields": [
+        "NT:/AdvantageKit/RealOutputs/Drivetrain/CurentModuleStates",
+        null,
+        "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose/2"
+      ],
+      "listFields": [],
+      "options": {
+        "maxSpeed": 5.9436,
+        "rotationUnits": "radians",
+        "arrangement": "0,1,2,3",
+        "sizeLeftRight": 0.65,
+        "sizeFrontBack": 0.65,
+        "forwardDirection": "up"
+      },
+      "title": "Curent Swerve"
+    },
+    {
+      "type": 6,
+      "fields": [],
+      "listFields": [
+        [],
+        [
+          {
+            "type": "Robot",
+            "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose",
+            "fieldTypeIndex": 0
+          }
+        ]
+      ],
+      "options": {
+        "field": "2023",
+        "alliance": "blue",
+        "robot": "Bot-Bot Strikes Back (6328)",
+        "unitDistance": "meters",
+        "unitRotation": "radians"
+      },
+      "title": "3D Field"
     },
     {
       "type": 5,
