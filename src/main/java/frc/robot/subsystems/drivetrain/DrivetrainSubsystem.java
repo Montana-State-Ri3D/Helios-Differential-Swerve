@@ -107,6 +107,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         chassisVelocityLogged[1] = targetChassisVelocity.vyMetersPerSecond;
         chassisVelocityLogged[2] = targetChassisVelocity.omegaRadiansPerSecond;
 
+        //Get curent SwerveModuleState from the moduals and log them to AdvantageKit
+        SwerveModuleState[] curentModuleStates = new SwerveModuleState[swerveModules.length];
+        for (int i = 0; i < swerveModules.length; ++i) {
+            curentModuleStates[i] = swerveModules[i].getSwerveModuleState();
+        }
+
+        Logger.getInstance().recordOutput("Drivetrain/CurentModuleStates", curentModuleStates);
         Logger.getInstance().recordOutput("Drivetrain/DesiredChassisVelocity", chassisVelocityLogged);
         Logger.getInstance().recordOutput("Drivetrain/DesiredModuleStates", moduleStates);
         Logger.getInstance().recordOutput("Drivetrain/OptimizedModuleStates", optimizedModuleStates);

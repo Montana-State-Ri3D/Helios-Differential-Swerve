@@ -110,6 +110,10 @@ public class SwerveModule {
                                 new Rotation2d(inputs.absoluteAngleRad));
         }
 
+        public SwerveModuleState getSwerveModuleState() {
+                return new SwerveModuleState(inputs.wheelSpeedMPerSec, new Rotation2d(inputs.absoluteAngleRad));
+        }
+
         // use custom predict() function for as absolute encoder azimuth angle
         // and the angular velocity
         // of the module need to be continuous.
