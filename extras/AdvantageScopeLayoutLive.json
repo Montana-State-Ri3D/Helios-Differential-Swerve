@@ -123,7 +123,7 @@
         "arrangement": "0,1,2,3",
         "sizeLeftRight": 0.65,
         "sizeFrontBack": 0.65,
-        "forwardDirection": "up"
+        "forwardDirection": "right"
       },
       "title": "Target Swerve"
     },
@@ -161,7 +161,7 @@
       "options": {
         "field": "2023",
         "alliance": "auto",
-        "robot": "Bot-Bot Strikes Back (6328)",
+        "robot": "Duck Bot",
         "unitDistance": "meters",
         "unitRotation": "radians"
       },

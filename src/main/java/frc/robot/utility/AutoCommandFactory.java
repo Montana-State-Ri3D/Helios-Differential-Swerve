@@ -16,7 +16,7 @@ import static frc.robot.Constants.*;
 
 public final class AutoCommandFactory {
     private static final PIDConstants AUTO_TRANSLATION_PID_CONSTANTS = new PIDConstants(9, 0.0, 0.0);
-    private static final PIDConstants AUTO_ROTATION_PID_CONSTANTS = new PIDConstants(7.0, 0.0, 0.25);
+    private static final PIDConstants AUTO_ROTATION_PID_CONSTANTS = new PIDConstants(7.0, 0.0, 0.0);
 
     private static PathConstraints normalConstraints = new PathConstraints(TRANSLATIONAN_FREE_SPEED, 3.0);
 
@@ -104,6 +104,16 @@ public final class AutoCommandFactory {
         Command cmd;
 
         cmd = builder.fullAuto(PathPlanner.loadPath("Drive Straight", normalConstraints));
+        group.addCommands(cmd);
+
+        return group;
+    }
+    public static SequentialCommandGroup createTurnInPlace(){
+        SequentialCommandGroup group = new SequentialCommandGroup();
+
+        Command cmd;
+
+        cmd = builder.fullAuto(PathPlanner.loadPath("Turn In Place", normalConstraints));
         group.addCommands(cmd);
 
         return group;
