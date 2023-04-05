@@ -3,9 +3,9 @@ package frc.robot.utility;
 import edu.wpi.first.wpilibj.RobotBase;
 
 public enum RobotIdentity {
-    JUNO_TEST_BOT,
+    HELIOS_TEST_BOT,
     SIMULATION,
-    JUNO_TEST_MODUAL;
+    HELIOS_TEST_MODUAL;
 
 
     /**
@@ -16,7 +16,7 @@ public enum RobotIdentity {
     public static RobotIdentity getIdentity() {
         // When we're running on a real robot we'll base the identity on its MAC address
         if (RobotBase.isReal()) {
-            return JUNO_TEST_MODUAL;
+            return HELIOS_TEST_MODUAL;
         }else{
             return SIMULATION;
         }

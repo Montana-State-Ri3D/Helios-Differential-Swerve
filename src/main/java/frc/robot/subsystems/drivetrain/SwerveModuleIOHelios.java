@@ -11,7 +11,7 @@ import edu.wpi.first.math.util.Units;
 
 import static frc.robot.Constants.*;
 
-public class SwerveModuleIOJuno implements SwerveModuleIO {
+public class SwerveModuleIOHelios implements SwerveModuleIO {
     // This value accounts for the wearing down of the tread over the course of a
     // competition, as well as the "squish factor" between
     // the wheels and the carpet. Function may be added down the line to dynamically
@@ -26,7 +26,7 @@ public class SwerveModuleIOJuno implements SwerveModuleIO {
     private final double offset;
 
 
-    public SwerveModuleIOJuno(
+    public SwerveModuleIOHelios(
             int bottomMotorID,
             int topMotorID,
             int steerEncoderID,
