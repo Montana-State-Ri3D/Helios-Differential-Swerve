@@ -27,8 +27,8 @@ public final class Constants {
 
     public static final int PDP_CAN_ID = 0;
 
-    public static final double DRIVE_RADIO = (11.0/84.0)*(54.0/12.0)*(15.0/45.0);
-    public static final double STEER_RADIO = (11.0/84.0);
+    public static final double DRIVE_RADIO = (11.0 / 84.0) * (54.0 / 12.0) * (15.0 / 45.0);
+    public static final double STEER_RADIO = (11.0 / 84.0);
 
     public static final double TRANSLATIONAN_FREE_SPEED = 5.9436;
 
@@ -93,18 +93,18 @@ public final class Constants {
 
     public static final double CONTROL_EFFORT = 0.8;
 
-            // Size of the robot chassis in meters
-            public static final double WIDTH = 0.6223; // meters
-            public static final double LENGTH = 0.6223; // meters
-    
-            // Distance of swerve modules from center of robot
-            public static final double SWERVE_FB_POS = LENGTH / 2.0;
-            public static final double SWERVE_LR_POS = WIDTH / 2.0;
-    
-            // Position vectors for the swerve module kinematics
-            // i.e. location of each swerve module from center of robot
-            public static final Translation2d FROUNT_LEFT = new Translation2d( SWERVE_FB_POS, SWERVE_LR_POS ); // +,+
-            public static final Translation2d BACK_LEFT = new Translation2d( -SWERVE_FB_POS, SWERVE_LR_POS ); // -,+
-            public static final Translation2d BACK_RIGHT = new Translation2d( -SWERVE_FB_POS, -SWERVE_LR_POS ); // -,-
-            public static final Translation2d FROUNT_RIGHT = new Translation2d( SWERVE_FB_POS, -SWERVE_LR_POS ); // +,-
+    // Size of the robot chassis in meters
+    public static final double WIDTH = Units.metersToFeet(2); // meters
+    public static final double LENGTH = Units.metersToFeet(2); // meters
+
+    // Distance of swerve modules from center of robot
+    public static final double SWERVE_FB_POS = LENGTH / 2.0;
+    public static final double SWERVE_LR_POS = WIDTH / 2.0;
+
+    // Position vectors for the swerve module kinematics
+    // i.e. location of each swerve module from center of robot
+    public static final Translation2d FROUNT_LEFT = new Translation2d(SWERVE_FB_POS, SWERVE_LR_POS); // +,+
+    public static final Translation2d BACK_LEFT = new Translation2d(-SWERVE_FB_POS, SWERVE_LR_POS); // -,+
+    public static final Translation2d BACK_RIGHT = new Translation2d(-SWERVE_FB_POS, -SWERVE_LR_POS); // -,-
+    public static final Translation2d FROUNT_RIGHT = new Translation2d(SWERVE_FB_POS, -SWERVE_LR_POS); // +,-
 }

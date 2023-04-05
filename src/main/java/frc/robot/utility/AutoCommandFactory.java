@@ -11,7 +11,6 @@ import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 
 public final class AutoCommandFactory {
@@ -22,7 +21,7 @@ public final class AutoCommandFactory {
 
     private static HashMap<String, Command> eventMap = new HashMap<>();
     private static SwerveAutoBuilder builder;
-
+    @SuppressWarnings({ "unused" })
     private static DrivetrainSubsystem drivetrain;
 
     public static void init(DrivetrainSubsystem drivetrain) {
@@ -58,6 +57,42 @@ public final class AutoCommandFactory {
         // Go to and pickup the cube
         List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("New Path", normalConstraints);
         cmd = builder.fullAuto(pathGroup.get(0));
+        group.addCommands(cmd);
+
+        return group;
+    }
+    public static SequentialCommandGroup createCoolAuto() {
+
+        SequentialCommandGroup group = new SequentialCommandGroup();
+
+        Command cmd;
+
+        // Go to and pickup the cube
+        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("New Path", normalConstraints);
+        cmd = builder.fullAuto(pathGroup.get(0));
+        group.addCommands(cmd);
+
+        return group;
+    }
+
+    public static SequentialCommandGroup createNoBumpSide3Auto() {
+
+        SequentialCommandGroup group = new SequentialCommandGroup();
+
+        Command cmd;
+
+        cmd = builder.fullAuto(PathPlanner.loadPath("HighSide2Experimental", normalConstraints));
+        group.addCommands(cmd);
+
+        // Return to community
+        cmd = builder.fullAuto(PathPlanner.loadPath("HighSide2ReturnAlt", normalConstraints));
+        group.addCommands(cmd);
+
+        cmd = builder.fullAuto(PathPlanner.loadPath("HighSide3", normalConstraints));
+        group.addCommands(cmd);
+
+        // Return to grid and score piece
+        cmd = builder.fullAuto(PathPlanner.loadPath("HighSide3Return", normalConstraints));
         group.addCommands(cmd);
 
         return group;
