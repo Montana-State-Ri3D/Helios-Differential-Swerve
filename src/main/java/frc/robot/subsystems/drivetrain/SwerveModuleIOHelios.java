@@ -20,7 +20,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
     private final CANSparkMax bottomMotor;
     private final CANSparkMax topMotor;
-    private final CANCoder steerEncoder;
+    //private final CANCoder steerEncoder;
     private final RelativeEncoder bottomEncoder;
     private final RelativeEncoder topEncoder;
     private final double offset;
@@ -34,21 +34,27 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
         bottomMotor = new CANSparkMax(bottomMotorID, MotorType.kBrushless);
         topMotor = new CANSparkMax(topMotorID, MotorType.kBrushless);
-        steerEncoder = new CANCoder(steerEncoderID);
+        //steerEncoder = new CANCoder(steerEncoderID);
 
         this.offset = offset;
 
         this.bottomEncoder = bottomMotor.getEncoder();
         this.topEncoder = topMotor.getEncoder();
 
+        bottomEncoder.setPositionConversionFactor(Math.PI*2.0);
+        topEncoder.setPositionConversionFactor(Math.PI*2.0);
+
+        bottomEncoder.setVelocityConversionFactor((Math.PI*2.0)/60.0);
+        topEncoder.setVelocityConversionFactor((Math.PI*2.0)/60.0);
+
         bottomMotor.setSmartCurrentLimit(40);
         topMotor.setSmartCurrentLimit(40);
 
         bottomMotor.setControlFramePeriodMs((int)kDt*1000);
         topMotor.setControlFramePeriodMs((int)kDt*1000);
-        steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
+        //steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
-        steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+        //steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
 
         // Workaround so that we always read a valid angle from the steer encoder when
         // setting up the steer motor.
@@ -69,11 +75,12 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         inputs.bottomAppliedPower = bottomMotor.getAppliedOutput();
         inputs.bottomCurrentDrawAmps = bottomMotor.getOutputCurrent();
 
-        inputs.absoluteAngleRad = Math.toRadians(steerEncoder.getPosition())+offset;
-        inputs.absoluteAngularVelocityRadPerSec = Math.toRadians(steerEncoder.getVelocity());
+        inputs.absoluteAngleRad = (bottomEncoder.getPosition()/DRIVE_RADIO + topEncoder.getPosition()/DRIVE_RADIO)/2.0;
+        inputs.absoluteAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/DRIVE_RADIO + topEncoder.getVelocity()/DRIVE_RADIO)/2.0;
 
-        inputs.wheelAngalRad = Units.degreesToRadians(steerEncoder.getAbsolutePosition());
-        inputs.wheelAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
+        inputs.wheelAngalRad = (bottomEncoder.getPosition()/DRIVE_RADIO - topEncoder.getPosition()/DRIVE_RADIO)/2.0;
+        inputs.wheelAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/DRIVE_RADIO - topEncoder.getVelocity()/DRIVE_RADIO)/2.0;
+        
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
 
