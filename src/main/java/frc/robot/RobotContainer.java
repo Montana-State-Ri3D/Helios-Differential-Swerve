@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DefaultDrivetrainCommand;
+import frc.robot.commands.SetModuleZero;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.utility.AutoCommandChooser;
 import frc.robot.utility.AutoCommandFactory;
@@ -62,15 +63,19 @@ public class RobotContainer {
 
   private void configureBindings() {
 
+    //reset Pose
     driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
 
+    //Toggle Field Orented
     driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
 
+    //Reset Gyro
     driveController.back().onTrue(new InstantCommand(
         () -> drivetrainSubsystem.resetPose(
             new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),
                 new Rotation2d()))));
-
+    //Set modules to zero
+    driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem));
   }
 
   private void setupAutoChooser() {

@@ -26,7 +26,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private final SwerveDrivePoseEstimator poseEstimator;
 
     private ChassisSpeeds targetChassisVelocity = new ChassisSpeeds();
+    private SwerveModuleState[] manualModuleStates;
     private double[] chassisVelocityLogged = new double[3];
+    private boolean enableOptimizedModuleStates = true;
+    private boolean enableManualModuleStates = false;
 
     public DrivetrainSubsystem(
             GyroIO gyroIO,
@@ -94,11 +97,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
         SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, maxTranslationalVelocityMetersPerSec);
 
         // Set the target state for each module
-        SwerveModuleState[] optimizedModuleStates = new SwerveModuleState[swerveModules.length];
+        SwerveModuleState[] desiredModuleStates = new SwerveModuleState[swerveModules.length];
         for (int i = 0; i < swerveModules.length; ++i) {
-            // Optimize the module state for the current module position
-            optimizedModuleStates[i] = SwerveModuleState.optimize(moduleStates[i], modulePositions[i].angle);
-            swerveModules[i].setTargetState(optimizedModuleStates[i]);
+            // Optimize the module state for the current module
+            if (enableOptimizedModuleStates) {
+                desiredModuleStates[i] = SwerveModuleState.optimize(moduleStates[i], modulePositions[i].angle);
+            } else if (enableManualModuleStates) {
+                desiredModuleStates[i] = manualModuleStates[i];
+            } else {
+                desiredModuleStates[i] = moduleStates[i];
+            }
+
+            swerveModules[i].setTargetState(desiredModuleStates[i]);
         }
 
         // Copy components of chassis speeds into double array that we can send to
@@ -107,7 +117,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         chassisVelocityLogged[1] = targetChassisVelocity.vyMetersPerSecond;
         chassisVelocityLogged[2] = targetChassisVelocity.omegaRadiansPerSecond;
 
-        //Get curent SwerveModuleState from the moduals and log them to AdvantageKit
+        // Get curent SwerveModuleState from the moduals and log them to AdvantageKit
         SwerveModuleState[] curentModuleStates = new SwerveModuleState[swerveModules.length];
         for (int i = 0; i < swerveModules.length; ++i) {
             curentModuleStates[i] = swerveModules[i].getSwerveModuleState();
@@ -116,7 +126,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         Logger.getInstance().recordOutput("Drivetrain/CurentModuleStates", curentModuleStates);
         Logger.getInstance().recordOutput("Drivetrain/DesiredChassisVelocity", chassisVelocityLogged);
         Logger.getInstance().recordOutput("Drivetrain/DesiredModuleStates", moduleStates);
-        Logger.getInstance().recordOutput("Drivetrain/OptimizedModuleStates", optimizedModuleStates);
+        Logger.getInstance().recordOutput("Drivetrain/OptimizedModuleStates", desiredModuleStates);
+        Logger.getInstance().recordOutput("Drivetrain/EnableOptimizer", enableOptimizedModuleStates);
 
         // Update odometry and log out pose based on odometry alone
         Pose2d odometryPose = odometry.update(new Rotation2d(gyroInputs.yawRadians), modulePositions);
@@ -134,6 +145,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public void setTargetChassisVelocity(ChassisSpeeds targetChassisVelocity) {
         this.targetChassisVelocity = targetChassisVelocity;
+    }
+
+    public void setOptimizer(boolean status) {
+        enableOptimizedModuleStates = status;
+    }
+    public void setManualModuleStateEnable(boolean status) {
+        enableManualModuleStates = status;
+    }
+
+    public void setManualModuleState(SwerveModuleState[] moduleStates) {
+        this.manualModuleStates = moduleStates;
     }
 
     // This should be injected via the contructor but we need it temporarily while
