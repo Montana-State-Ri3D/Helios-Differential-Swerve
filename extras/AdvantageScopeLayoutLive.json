@@ -21,17 +21,17 @@
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/AbsoluteAngularVelocityRadPerSec",
               "color": "#80588e",
-              "show": true
+              "show": false
             },
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/WheelAngalRad",
               "color": "#e48b32",
-              "show": true
+              "show": false
             },
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/WheelAngularVelocityRadPerSec",
               "color": "#aacaee",
-              "show": true
+              "show": false
             }
           ]
         },
@@ -48,12 +48,12 @@
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/TopAppliedPower",
               "color": "#2b66a2",
-              "show": true
+              "show": false
             },
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/BottomAppliedPower",
               "color": "#af2437",
-              "show": true
+              "show": false
             }
           ]
         }
@@ -73,13 +73,13 @@
           },
           "fields": [
             {
-              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/OptimizedModuleStates/1",
-              "color": "#2b66a2",
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/AbsoluteAngleRad",
+              "color": "#e5b31b",
               "show": true
             },
             {
-              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/AbsoluteAngleRad",
-              "color": "#80588e",
+              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/TargetModuleStates/0",
+              "color": "#2b66a2",
               "show": true
             }
           ]
@@ -95,14 +95,14 @@
           },
           "fields": [
             {
-              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/OptimizedModuleStates/0",
-              "color": "#e5b31b",
-              "show": false
+              "key": "NT:/AdvantageKit/RealOutputs/Drivetrain/TargetModuleStates/1",
+              "color": "#80588e",
+              "show": true
             },
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/WheelSpeedMPerSec",
               "color": "#af2437",
-              "show": false
+              "show": true
             }
           ]
         }
@@ -113,7 +113,7 @@
       "type": 9,
       "fields": [
         "NT:/AdvantageKit/RealOutputs/Drivetrain/DesiredModuleStates",
-        "NT:/AdvantageKit/RealOutputs/Drivetrain/OptimizedModuleStates",
+        "NT:/AdvantageKit/RealOutputs/Drivetrain/TargetModuleStates",
         "NT:/AdvantageKit/RealOutputs/Drivetrain/Pose/2"
       ],
       "listFields": [],
