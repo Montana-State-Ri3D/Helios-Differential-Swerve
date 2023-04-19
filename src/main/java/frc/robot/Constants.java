@@ -67,8 +67,8 @@ public final class Constants {
 
     public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
-    public static final double INERTIA_WHEEL = 0.000005;
-    public static final double INERTIA_STEER = 0.000004;
+    public static final double INERTIA_WHEEL = 0.005;
+    public static final double INERTIA_STEER = 0.004;
 
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.

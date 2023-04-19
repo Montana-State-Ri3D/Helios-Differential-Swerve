@@ -36,7 +36,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
         this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec
-                / Math.hypot(SWERVE_LR_POS, SWERVE_FB_POS / 2.0);
+                / Math.hypot(WIDTH/2.0, LENGTH/ 2.0);
 
         this.gyroIO = gyroIO;
 
