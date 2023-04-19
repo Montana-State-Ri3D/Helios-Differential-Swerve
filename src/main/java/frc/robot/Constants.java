@@ -94,8 +94,8 @@ public final class Constants {
     public static final double CONTROL_EFFORT = 0.8;
 
     // Size of the robot chassis in meters
-    public static final double WIDTH = Units.metersToFeet(2); // meters
-    public static final double LENGTH = Units.metersToFeet(2); // meters
+    public static final double WIDTH = Units.feetToMeters(2); // meters
+    public static final double LENGTH = Units.feetToMeters(2); // meters
 
     // Distance of swerve modules from center of robot
     public static final double SWERVE_FB_POS = LENGTH / 2.0;

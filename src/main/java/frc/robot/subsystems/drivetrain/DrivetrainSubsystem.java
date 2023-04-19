@@ -13,7 +13,7 @@ import static frc.robot.Constants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-    private final double maxTranslationalVelocityMetersPerSec = TRANSLATIONAN_FREE_SPEED;
+    private final double maxTranslationalVelocityMetersPerSec;
     private final double maxAngularVelocityRadPerSec;
 
     private final GyroIO gyroIO;
@@ -28,15 +28,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private ChassisSpeeds targetChassisVelocity = new ChassisSpeeds();
     private SwerveModuleState[] manualModuleStates;
     private double[] chassisVelocityLogged = new double[3];
-    private boolean enableOptimizedModuleStates = true;
+    private boolean enableOptimizedModuleStates = false;
     private boolean enableManualModuleStates = false;
 
     public DrivetrainSubsystem(
             GyroIO gyroIO,
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
-        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec
-                / Math.hypot(WIDTH/2.0, LENGTH/ 2.0);
+        this.maxTranslationalVelocityMetersPerSec = TRANSLATIONAN_FREE_SPEED;
+        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec / Math.hypot(WIDTH/2.0, LENGTH/ 2.0);
 
         this.gyroIO = gyroIO;
 
@@ -126,7 +126,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         Logger.getInstance().recordOutput("Drivetrain/CurentModuleStates", curentModuleStates);
         Logger.getInstance().recordOutput("Drivetrain/DesiredChassisVelocity", chassisVelocityLogged);
         Logger.getInstance().recordOutput("Drivetrain/DesiredModuleStates", moduleStates);
-        Logger.getInstance().recordOutput("Drivetrain/OptimizedModuleStates", desiredModuleStates);
+        Logger.getInstance().recordOutput("Drivetrain/TargetModuleStates", desiredModuleStates);
         Logger.getInstance().recordOutput("Drivetrain/EnableOptimizer", enableOptimizedModuleStates);
 
         // Update odometry and log out pose based on odometry alone

@@ -75,8 +75,8 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         inputs.bottomAppliedPower = bottomMotor.getAppliedOutput();
         inputs.bottomCurrentDrawAmps = bottomMotor.getOutputCurrent();
 
-        inputs.absoluteAngleRad = (bottomEncoder.getPosition()/DRIVE_RADIO + topEncoder.getPosition()/DRIVE_RADIO)/2.0;
-        inputs.absoluteAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/DRIVE_RADIO + topEncoder.getVelocity()/DRIVE_RADIO)/2.0;
+        inputs.absoluteAngleRad = (bottomEncoder.getPosition()/STEER_RADIO + topEncoder.getPosition()/STEER_RADIO)/2.0;
+        inputs.absoluteAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/STEER_RADIO + topEncoder.getVelocity()/STEER_RADIO)/2.0;
 
         inputs.wheelAngalRad = (bottomEncoder.getPosition()/DRIVE_RADIO - topEncoder.getPosition()/DRIVE_RADIO)/2.0;
         inputs.wheelAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/DRIVE_RADIO - topEncoder.getVelocity()/DRIVE_RADIO)/2.0;
