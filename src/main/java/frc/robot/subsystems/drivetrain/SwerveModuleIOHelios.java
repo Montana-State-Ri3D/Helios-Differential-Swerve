@@ -5,6 +5,7 @@ import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.util.Units;
@@ -37,6 +38,9 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         //steerEncoder = new CANCoder(steerEncoderID);
 
         this.offset = offset;
+
+        bottomMotor.setIdleMode(IdleMode.kBrake);
+        topMotor.setIdleMode(IdleMode.kBrake);
 
         this.bottomEncoder = bottomMotor.getEncoder();
         this.topEncoder = topMotor.getEncoder();
@@ -75,11 +79,13 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         inputs.bottomAngularVelocityRadPerSec = bottomEncoder.getVelocity();
         inputs.bottomAppliedPower = bottomMotor.getAppliedOutput();
         inputs.bottomCurrentDrawAmps = bottomMotor.getOutputCurrent();
+        inputs.bottomTemp = bottomMotor.getMotorTemperature();
 
         inputs.topAngleRad = topEncoder.getPosition();
         inputs.topAngularVelocityRadPerSec = topEncoder.getVelocity();
         inputs.topAppliedPower = topMotor.getAppliedOutput();
         inputs.topCurrentDrawAmps = topMotor.getOutputCurrent();
+        inputs.topTemp = topMotor.getMotorTemperature();
 
         //inputs.absoluteAngleRad = Units.degreesToRadians(steerEncoder.getPosition())-offset;
         //inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());

@@ -41,17 +41,20 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         inputs.bottomAngularVelocityRadPerSec = bottomMotorSim.getAngularVelocityRadPerSec();
         inputs.bottomAppliedPower = bottomPower;
         inputs.bottomCurrentDrawAmps = bottomMotorSim.getCurrentDrawAmps();
+        inputs.bottomTemp = 0;
 
         inputs.topAngleRad = topMotorSim.getAngularPositionRad();
         inputs.topAngularVelocityRadPerSec = topMotorSim.getAngularVelocityRadPerSec();
         inputs.topAppliedPower = topPower;
-        inputs.topCurrentDrawAmps = topMotorSim.getCurrentDrawAmps();        
+        inputs.topCurrentDrawAmps = topMotorSim.getCurrentDrawAmps();  
+        inputs.topTemp = 0;      
 
         inputs.absoluteAngleRad = (bottomMotorSim.getAngularPositionRad()/STEER_RADIO + topMotorSim.getAngularPositionRad()/STEER_RADIO)/2.0;
         inputs.absoluteAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO + topMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO)/2.0;
 
         inputs.wheelAngalRad = (bottomMotorSim.getAngularPositionRad()/DRIVE_RADIO - topMotorSim.getAngularPositionRad()/DRIVE_RADIO)/2.0;
         inputs.wheelAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO - topMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO)/2.0;
+        
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
     }
