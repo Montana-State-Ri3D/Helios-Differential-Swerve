@@ -23,7 +23,6 @@ public class SetModuleZero extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setOptimizer(false);
     drivetrain.setManualModuleStateEnable(true);
   }
 
@@ -43,7 +42,6 @@ public class SetModuleZero extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.setOptimizer(true);
     drivetrain.setManualModuleStateEnable(false);
   }
 

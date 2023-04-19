@@ -28,6 +28,6 @@ public interface SwerveModuleIO {
     default void updateInputs(SwerveModuleIOInputs inputs) {
     }
 
-    default void setVoltage(double bottomPower,double topPower) {
+    default void setVoltages(double bottomPower,double topPower) {
     }
 }

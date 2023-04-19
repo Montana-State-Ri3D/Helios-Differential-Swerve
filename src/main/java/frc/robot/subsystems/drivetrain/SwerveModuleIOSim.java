@@ -60,7 +60,7 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     }
 
     @Override
-    public void setVoltage(double bottomPower, double topPower) {
+    public void setVoltages(double bottomPower, double topPower) {
 
         if (Robot.isEnabled) {
             this.bottomPower = bottomPower;

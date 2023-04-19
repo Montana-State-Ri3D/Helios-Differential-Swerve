@@ -39,8 +39,10 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
         this.offset = offset;
 
-        bottomMotor.setIdleMode(IdleMode.kBrake);
-        topMotor.setIdleMode(IdleMode.kBrake);
+        IdleMode idleMode = IdleMode.kBrake;
+
+        bottomMotor.setIdleMode(idleMode);
+        topMotor.setIdleMode(idleMode);
 
         this.bottomEncoder = bottomMotor.getEncoder();
         this.topEncoder = topMotor.getEncoder();
@@ -51,8 +53,8 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         bottomEncoder.setVelocityConversionFactor((Math.PI*2.0)/60.0);
         topEncoder.setVelocityConversionFactor((Math.PI*2.0)/60.0);
 
-        bottomMotor.setSmartCurrentLimit(40);
-        topMotor.setSmartCurrentLimit(40);
+        bottomMotor.setSmartCurrentLimit(DRIVETRAIN_MAX_CURRENT);
+        topMotor.setSmartCurrentLimit(DRIVETRAIN_MAX_CURRENT);
 
         bottomMotor.setControlFramePeriodMs((int)kDt*1000);
         topMotor.setControlFramePeriodMs((int)kDt*1000);
@@ -90,18 +92,18 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         //inputs.absoluteAngleRad = Units.degreesToRadians(steerEncoder.getPosition())-offset;
         //inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
 
-        inputs.absoluteAngleRad = (bottomEncoder.getPosition()/STEER_RADIO + topEncoder.getPosition()/STEER_RADIO)/2.0;
-        inputs.absoluteAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/STEER_RADIO + topEncoder.getVelocity()/STEER_RADIO)/2.0;
+        inputs.absoluteAngleRad = ((bottomEncoder.getPosition()/STEER_RADIO) + (topEncoder.getPosition()/STEER_RADIO))/2.0;
+        inputs.absoluteAngularVelocityRadPerSec = ((bottomEncoder.getVelocity()/STEER_RADIO) + (topEncoder.getVelocity()/STEER_RADIO))/2.0;
 
-        inputs.wheelAngalRad = (bottomEncoder.getPosition()/DRIVE_RADIO - topEncoder.getPosition()/DRIVE_RADIO)/2.0;
-        inputs.wheelAngularVelocityRadPerSec = (bottomEncoder.getVelocity()/DRIVE_RADIO - topEncoder.getVelocity()/DRIVE_RADIO)/2.0;
+        inputs.wheelAngalRad = ((bottomEncoder.getPosition()/DRIVE_RADIO) - (topEncoder.getPosition()/DRIVE_RADIO))/2.0;
+        inputs.wheelAngularVelocityRadPerSec = ((bottomEncoder.getVelocity()/DRIVE_RADIO) - (topEncoder.getVelocity()/DRIVE_RADIO))/2.0;
         
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
     }
 
     @Override
-    public void setVoltage(double bottomPower, double topPower) {
+    public void setVoltages(double bottomPower, double topPower) {
         bottomMotor.setVoltage(bottomPower);
         topMotor.setVoltage(topPower);
     }

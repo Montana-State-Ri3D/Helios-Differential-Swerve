@@ -132,7 +132,7 @@ public class SwerveModule {
         }
 
         private void setPowers(double bottomPower, double topPower) {
-                io.setVoltage(bottomPower, topPower);
+                io.setVoltages(bottomPower, topPower);
         }
 
         /**
