@@ -7,7 +7,6 @@ public enum RobotIdentity {
     SIMULATION,
     HELIOS_TEST_MODUAL;
 
-
     /**
      * Gets the identity of the robot.
      *
@@ -17,7 +16,7 @@ public enum RobotIdentity {
         // When we're running on a real robot we'll base the identity on its MAC address
         if (RobotBase.isReal()) {
             return HELIOS_TEST_MODUAL;
-        }else{
+        } else {
             return SIMULATION;
         }
     }

@@ -11,9 +11,10 @@ public class AdvantageKitHelper {
     /**
      * setupLogger - Configure AdvantageKit logging for the robot.
      * 
-    * @param doNetworkLogging - Boolean flag telling whether to log to the NetworkTables
-    * @return The instance of the logger
-    */
+     * @param doNetworkLogging - Boolean flag telling whether to log to the
+     *                         NetworkTables
+     * @return The instance of the logger
+     */
     public static Logger setupLogger(boolean doNetworkLogging) {
         Logger logger = Logger.getInstance();
 
@@ -22,7 +23,8 @@ public class AdvantageKitHelper {
             logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
         }
 
-        // We don't add the NT4 receiver in competition matches to reduce network traffic.
+        // We don't add the NT4 receiver in competition matches to reduce network
+        // traffic.
         if (doNetworkLogging) {
             logger.addDataReceiver(new NT4Publisher());
         }

@@ -32,7 +32,7 @@ public final class Constants {
 
     public static final double TRANSLATIONAN_FREE_SPEED = 5.9436;// M/Sec
 
-    public static final double MOTOR_FREE_SPEED = 5676;//RPM
+    public static final double MOTOR_FREE_SPEED = 5676;// RPM
 
     public static final double WHEEL_NOMINAL_DIAMETER_METERS = Units.inchesToMeters(4.0);
     public static final double TREADWEAR = Units.inchesToMeters(0.0);

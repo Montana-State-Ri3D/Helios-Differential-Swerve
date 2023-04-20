@@ -41,7 +41,8 @@ public final class AutoCommandFactory {
     }
 
     /**
-     * Autonomous command that just sits there and does nothing (except unpark the arm)
+     * Autonomous command that just sits there and does nothing (except unpark the
+     * arm)
      */
     public static SequentialCommandGroup createNullAuto() {
         SequentialCommandGroup group = new SequentialCommandGroup();
@@ -62,6 +63,7 @@ public final class AutoCommandFactory {
 
         return group;
     }
+
     public static SequentialCommandGroup createCoolAuto() {
 
         SequentialCommandGroup group = new SequentialCommandGroup();
@@ -98,7 +100,8 @@ public final class AutoCommandFactory {
 
         return group;
     }
-    public static SequentialCommandGroup createDriveStraignt(){
+
+    public static SequentialCommandGroup createDriveStraignt() {
         SequentialCommandGroup group = new SequentialCommandGroup();
 
         Command cmd;
@@ -108,7 +111,8 @@ public final class AutoCommandFactory {
 
         return group;
     }
-    public static SequentialCommandGroup createTurnInPlace(){
+
+    public static SequentialCommandGroup createTurnInPlace() {
         SequentialCommandGroup group = new SequentialCommandGroup();
 
         Command cmd;
@@ -118,8 +122,6 @@ public final class AutoCommandFactory {
 
         return group;
     }
-
-
 
     // Default constructor that just throws an exception if you attempt to create an
     // instace of this class.

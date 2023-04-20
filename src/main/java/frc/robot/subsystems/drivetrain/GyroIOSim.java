@@ -4,7 +4,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.sim.SimModelData;
 
-
 public class GyroIOSim implements GyroIO {
 
     private Timer timer = new Timer();
@@ -26,12 +25,14 @@ public class GyroIOSim implements GyroIO {
         // Get the requested angular velocity of rotation (radians/second).
         double requestedVelocity = simData.driveTrainChassisSpeeds.omegaRadiansPerSecond;
 
-        // Determine how much time (seconds) has elapsed since our last update and reset the timer for the next one.
+        // Determine how much time (seconds) has elapsed since our last update and reset
+        // the timer for the next one.
         double elapsedTime = timer.get();
         timer.reset();
 
-        // Calculate how much the robot would have rotated at the requested rate during the elapsed time
-        // and add it to the current yaw to get the new value.       
+        // Calculate how much the robot would have rotated at the requested rate during
+        // the elapsed time
+        // and add it to the current yaw to get the new value.
         double deltaYaw = requestedVelocity * elapsedTime;
         currentYawRads = MathUtil.inputModulus(currentYawRads + deltaYaw, -Math.PI, Math.PI);
         inputs.yawRadians = currentYawRads;

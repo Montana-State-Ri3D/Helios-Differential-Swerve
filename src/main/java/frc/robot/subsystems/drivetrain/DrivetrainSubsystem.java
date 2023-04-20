@@ -36,7 +36,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
             SwerveModuleIO frontLeftModuleIO, SwerveModuleIO frontRightModuleIO,
             SwerveModuleIO backLeftModuleIO, SwerveModuleIO backRightModuleIO) {
         this.maxTranslationalVelocityMetersPerSec = TRANSLATIONAN_FREE_SPEED;
-        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec / Math.hypot(WIDTH/2.0, LENGTH/ 2.0);
+        this.maxAngularVelocityRadPerSec = maxTranslationalVelocityMetersPerSec / Math.hypot(WIDTH / 2.0, LENGTH / 2.0);
 
         this.gyroIO = gyroIO;
 
@@ -150,6 +150,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void setOptimizer(boolean status) {
         enableOptimizedModuleStates = status;
     }
+
     public void setManualModuleStateEnable(boolean status) {
         enableManualModuleStates = status;
     }

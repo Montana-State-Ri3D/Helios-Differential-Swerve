@@ -63,18 +63,18 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    //reset Pose (Start)
+    // reset Pose (Start)
     driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
 
-    //Toggle Field Orented (X)
+    // Toggle Field Orented (X)
     driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
 
-    //Reset Gyro (Back)
+    // Reset Gyro (Back)
     driveController.back().onTrue(new InstantCommand(
         () -> drivetrainSubsystem.resetPose(
             new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),
                 new Rotation2d()))));
-    //Set modules to zero (Y)
+    // Set modules to zero (Y)
     driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem));
   }
 
@@ -90,14 +90,14 @@ public class RobotContainer {
 
     // Setup the chooser in shuffleboard
     autoChooser.setup("Driver", 0, 0, 3, 1);
-}
+  }
 
-/**
- * Use this to pass the autonomous command to the main {@link Robot} class.
- *
- * @return the command to run in autonomous
- */
-public Command getAutonomousCommand() {
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand() {
     return autoChooser.getAutonomousCommand();
-}
+  }
 }

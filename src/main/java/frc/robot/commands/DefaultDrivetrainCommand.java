@@ -47,10 +47,12 @@ public class DefaultDrivetrainCommand extends CommandBase {
         }
         drivetrain.setTargetChassisVelocity(chassisVelocity);
     }
-    public void fieldOriented(boolean isFieldOriented){
+
+    public void fieldOriented(boolean isFieldOriented) {
         this.isFieldOriented = isFieldOriented;
     }
-    public void toggleFieldOriented(){
+
+    public void toggleFieldOriented() {
         this.isFieldOriented = !isFieldOriented;
     }
 

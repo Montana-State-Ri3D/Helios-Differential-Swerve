@@ -29,12 +29,12 @@ public class SetModuleZero extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SwerveModuleState[] moduleStates = new SwerveModuleState[] { 
-      new SwerveModuleState(0.0, new Rotation2d(0.0)),
-      new SwerveModuleState(0.0, new Rotation2d(0.0)),
-      new SwerveModuleState(0.0, new Rotation2d(0.0)),
-      new SwerveModuleState(0.0, new Rotation2d(0.0)),
-     };
+    SwerveModuleState[] moduleStates = new SwerveModuleState[] {
+        new SwerveModuleState(0.0, new Rotation2d(0.0)),
+        new SwerveModuleState(0.0, new Rotation2d(0.0)),
+        new SwerveModuleState(0.0, new Rotation2d(0.0)),
+        new SwerveModuleState(0.0, new Rotation2d(0.0)),
+    };
 
     drivetrain.setManualModuleState(moduleStates);
   }

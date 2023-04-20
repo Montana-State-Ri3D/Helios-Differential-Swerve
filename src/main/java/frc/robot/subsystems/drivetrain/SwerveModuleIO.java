@@ -24,10 +24,10 @@ public interface SwerveModuleIO {
         public double topCurrentDrawAmps;
         public double topTemp;
     }
-    
+
     default void updateInputs(SwerveModuleIOInputs inputs) {
     }
 
-    default void setVoltages(double bottomPower,double topPower) {
+    default void setVoltages(double bottomPower, double topPower) {
     }
 }
