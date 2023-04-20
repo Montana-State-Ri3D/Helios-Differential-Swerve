@@ -28,7 +28,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private ChassisSpeeds targetChassisVelocity = new ChassisSpeeds();
     private SwerveModuleState[] manualModuleStates;
     private double[] chassisVelocityLogged = new double[3];
-    private boolean enableOptimizedModuleStates = false;
+    private boolean enableOptimizedModuleStates = true;
     private boolean enableManualModuleStates = false;
 
     public DrivetrainSubsystem(
@@ -100,10 +100,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         SwerveModuleState[] desiredModuleStates = new SwerveModuleState[swerveModules.length];
         for (int i = 0; i < swerveModules.length; ++i) {
             // Optimize the module state for the current module
-            if (enableOptimizedModuleStates) {
-                desiredModuleStates[i] = SwerveModuleState.optimize(moduleStates[i], modulePositions[i].angle);
-            } else if (enableManualModuleStates) {
+            if (enableManualModuleStates) {
                 desiredModuleStates[i] = manualModuleStates[i];
+            }else if (enableOptimizedModuleStates) {
+                desiredModuleStates[i] = SwerveModuleState.optimize(moduleStates[i], modulePositions[i].angle);
             } else {
                 desiredModuleStates[i] = moduleStates[i];
             }

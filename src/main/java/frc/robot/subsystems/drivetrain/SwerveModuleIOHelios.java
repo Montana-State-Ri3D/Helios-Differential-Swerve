@@ -8,6 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 
 import static frc.robot.Constants.*;
@@ -61,7 +62,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
         //steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
-        //steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+        //steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
 
         // Workaround so that we always read a valid angle from the steer encoder when
         // setting up the steer motor.
@@ -92,11 +93,11 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         //inputs.absoluteAngleRad = Units.degreesToRadians(steerEncoder.getPosition())-offset;
         //inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
 
-        inputs.absoluteAngleRad = ((bottomEncoder.getPosition()/STEER_RADIO) + (topEncoder.getPosition()/STEER_RADIO))/2.0;
-        inputs.absoluteAngularVelocityRadPerSec = ((bottomEncoder.getVelocity()/STEER_RADIO) + (topEncoder.getVelocity()/STEER_RADIO))/2.0;
+        inputs.absoluteAngleRad = MathUtil.inputModulus((bottomEncoder.getPosition() + topEncoder.getPosition())/(STEER_RADIO*2.0), -Math.PI, Math.PI);
+        inputs.absoluteAngularVelocityRadPerSec = (bottomEncoder.getVelocity() + topEncoder.getVelocity())/(STEER_RADIO * 2.0);
 
-        inputs.wheelAngalRad = ((bottomEncoder.getPosition()/DRIVE_RADIO) - (topEncoder.getPosition()/DRIVE_RADIO))/2.0;
-        inputs.wheelAngularVelocityRadPerSec = ((bottomEncoder.getVelocity()/DRIVE_RADIO) - (topEncoder.getVelocity()/DRIVE_RADIO))/2.0;
+        inputs.wheelAngalRad = (bottomEncoder.getPosition() - topEncoder.getPosition())/(DRIVE_RADIO * 2.0);
+        inputs.wheelAngularVelocityRadPerSec = (bottomEncoder.getVelocity() - topEncoder.getVelocity())/(DRIVE_RADIO * 2.0);
         
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);

@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drivetrain;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import frc.robot.Robot;
@@ -21,14 +22,14 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     private final DCMotorSim bottomMotorSim;
     private final DCMotorSim topMotorSim;
 
-    private final double momentjKgMetersSquared = 0.05;
+    private final double momentjKgMetersSquared = 0.005;
 
     public SwerveModuleIOSim() {
 
         bottomMotor = DCMotor.getNEO(1);
         topMotor = DCMotor.getNEO(1);
-        bottomMotorSim = new DCMotorSim(bottomMotor, 10.0, momentjKgMetersSquared);
-        topMotorSim = new DCMotorSim(topMotor, 10.0, momentjKgMetersSquared);
+        bottomMotorSim = new DCMotorSim(bottomMotor, 1.0, momentjKgMetersSquared);
+        topMotorSim = new DCMotorSim(topMotor, 1.0, momentjKgMetersSquared);
     }
 
     @Override
@@ -49,11 +50,11 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         inputs.topCurrentDrawAmps = topMotorSim.getCurrentDrawAmps();  
         inputs.topTemp = 0;      
 
-        inputs.absoluteAngleRad = (bottomMotorSim.getAngularPositionRad()/STEER_RADIO + topMotorSim.getAngularPositionRad()/STEER_RADIO)/2.0;
-        inputs.absoluteAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO + topMotorSim.getAngularVelocityRadPerSec()/STEER_RADIO)/2.0;
+        inputs.absoluteAngleRad = MathUtil.inputModulus((bottomMotorSim.getAngularPositionRad() + topMotorSim.getAngularPositionRad())/(STEER_RADIO*2.0), -Math.PI, Math.PI);
+        inputs.absoluteAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec() + topMotorSim.getAngularVelocityRadPerSec())/(STEER_RADIO*2.0);
 
-        inputs.wheelAngalRad = (bottomMotorSim.getAngularPositionRad()/DRIVE_RADIO - topMotorSim.getAngularPositionRad()/DRIVE_RADIO)/2.0;
-        inputs.wheelAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO - topMotorSim.getAngularVelocityRadPerSec()/DRIVE_RADIO)/2.0;
+        inputs.wheelAngalRad = (bottomMotorSim.getAngularPositionRad() - topMotorSim.getAngularPositionRad())/(DRIVE_RADIO * 2.0);
+        inputs.wheelAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec() - topMotorSim.getAngularVelocityRadPerSec())/(DRIVE_RADIO * 2.0);
         
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
