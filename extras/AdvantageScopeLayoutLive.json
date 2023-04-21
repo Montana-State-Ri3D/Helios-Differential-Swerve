@@ -48,17 +48,64 @@
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/TopAppliedPower",
               "color": "#2b66a2",
-              "show": false
+              "show": true
             },
             {
               "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/BottomAppliedPower",
               "color": "#af2437",
-              "show": false
+              "show": true
             }
           ]
         }
       },
       "title": "FL Module"
+    },
+    {
+      "type": 1,
+      "legends": {
+        "left": {
+          "lockedRange": null,
+          "unitConversion": {
+            "type": null,
+            "factor": 1
+          },
+          "fields": [
+            {
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/WheelSpeedMPerSec",
+              "color": "#e5b31b",
+              "show": true
+            },
+            {
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/WheelDistanceM",
+              "color": "#2b66a2",
+              "show": true
+            }
+          ]
+        },
+        "discrete": {
+          "fields": []
+        },
+        "right": {
+          "lockedRange": null,
+          "unitConversion": {
+            "type": null,
+            "factor": 1
+          },
+          "fields": [
+            {
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/TopTemp",
+              "color": "#af2437",
+              "show": true
+            },
+            {
+              "key": "NT:/AdvantageKit/Drivetrain/FrontLeftModule/BottomTemp",
+              "color": "#80588e",
+              "show": true
+            }
+          ]
+        }
+      },
+      "title": "FL Wheel"
     },
     {
       "type": 1,
@@ -161,7 +208,7 @@
       "options": {
         "field": "2023",
         "alliance": "auto",
-        "robot": "Duck Bot",
+        "robot": "Bot-Bot Awakens (6328)",
         "unitDistance": "meters",
         "unitRotation": "radians"
       },
@@ -284,7 +331,8 @@
         "NT:/FMSInfo/GameSpecificMessage",
         "NT:/FMSInfo/MatchNumber",
         "NT:/FMSInfo/MatchType",
-        "NT:/FMSInfo/StationNumber"
+        "NT:/FMSInfo/StationNumber",
+        "NT:/FMSInfo/IsRedAlliance"
       ],
       "title": "FMS Info"
     }

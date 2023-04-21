@@ -15,7 +15,6 @@ public class ControllerHelper {
      */
     public double modifyAxis(double value) {
         value = MathUtil.applyDeadband(value, deadbandWidth) * scaleCoefficient;
-
         return Math.copySign(value * value, value);
     }
 

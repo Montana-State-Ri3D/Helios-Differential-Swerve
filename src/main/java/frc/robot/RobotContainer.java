@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AlignCardinalDirectionCommand;
 import frc.robot.commands.DefaultDrivetrainCommand;
+import frc.robot.commands.ScaleJoystickCommand;
 import frc.robot.commands.SetModuleZero;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.utility.AutoCommandChooser;
@@ -25,6 +26,8 @@ import static frc.robot.Constants.*;
 public class RobotContainer {
 
   private DrivetrainSubsystem drivetrainSubsystem;
+
+  ControllerHelper driverHelper = new ControllerHelper();
 
   private DefaultDrivetrainCommand defaultDrivetrainCommand;
 
@@ -48,22 +51,20 @@ public class RobotContainer {
   }
 
   private void createCommands() {
-    ControllerHelper driverHelper = new ControllerHelper();
     AutoCommandFactory.init(drivetrainSubsystem);
 
     defaultDrivetrainCommand = new DefaultDrivetrainCommand(drivetrainSubsystem,
-        () -> driverHelper.modifyAxis(-driveController.getLeftY())
-            * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
-        () -> driverHelper.modifyAxis(-driveController.getLeftX())
-            * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
-        () -> driverHelper.modifyAxis(-driveController.getRightX())
-            * drivetrainSubsystem.getMaxAngularVelocityRadPerSec());
+        () -> driverHelper.modifyAxis(-driveController.getLeftY()) * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
+        () -> driverHelper.modifyAxis(-driveController.getLeftX()) * drivetrainSubsystem.getMaxTranslationalVelocityMetersPerSecond(),
+        () -> driverHelper.modifyAxis(-driveController.getRightX()) * drivetrainSubsystem.getMaxAngularVelocityRadPerSec());
 
     drivetrainSubsystem.setDefaultCommand(defaultDrivetrainCommand);
 
   }
 
   private void configureBindings() {
+    // Slow Mode 50% power (A)
+    driveController.a().whileTrue(new ScaleJoystickCommand(driverHelper, 0.5));
 
     // reset Pose (Start)
     driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));

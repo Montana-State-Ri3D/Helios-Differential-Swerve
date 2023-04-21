@@ -9,7 +9,7 @@ import edu.wpi.first.math.util.Units;
 
 public class AlignCardinalDirectionCommand extends CommandBase {
 
-  private static final double POSITION_TOLERANCE_RADIANS = Units.degreesToRadians(3.0);
+  private static final double POSITION_TOLERANCE_RADIANS = Units.degreesToRadians(1.0);
 
   private final DrivetrainSubsystem drivetrain;
   private double targetAngleRad;
