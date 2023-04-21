@@ -27,15 +27,14 @@ public class RobotContainer {
 
   private DrivetrainSubsystem drivetrainSubsystem;
 
-  ControllerHelper driverHelper = new ControllerHelper();
-
   private DefaultDrivetrainCommand defaultDrivetrainCommand;
 
   private RobotIdentity indetity;
   private AutoCommandChooser autoChooser;
 
-  // Creating Controlers
   private final CommandXboxController driveController = new CommandXboxController(DRIVE_CONTROLLER_PORT);
+
+  ControllerHelper driverHelper = new ControllerHelper();
 
   public RobotContainer(RobotIdentity indetity) {
     this.indetity = indetity;
@@ -66,21 +65,23 @@ public class RobotContainer {
     // Slow Mode 50% power (A)
     driveController.a().whileTrue(new ScaleJoystickCommand(driverHelper, 0.5));
 
-    // reset Pose (Start)
-    driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
-
     // Toggle Field Orented (X)
     driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
+
+    //align Cardinal Direction (B)
+    driveController.b().onTrue(new AlignCardinalDirectionCommand(drivetrainSubsystem));
+
+    // Set modules to zero (Y)
+    driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem));
 
     // Reset Gyro (Back)
     driveController.back().onTrue(new InstantCommand(
         () -> drivetrainSubsystem.resetPose(
             new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),
                 new Rotation2d()))));
-    // Set modules to zero (Y)
-    driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem));
 
-    driveController.b().onTrue(new AlignCardinalDirectionCommand(drivetrainSubsystem));
+    // reset Pose (Start)
+    driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
   }
 
   private void setupAutoChooser() {
