@@ -6,7 +6,7 @@ public class ControllerHelper {
 
     private static final double defaultScaleCoefficient = 1;
 
-    private double deadbandWidth = 0.1;
+    private double deadbandWidth = 0.2;
     private double scaleCoefficient = defaultScaleCoefficient;
 
     /**

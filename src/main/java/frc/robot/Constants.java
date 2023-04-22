@@ -63,37 +63,37 @@ public final class Constants {
     // update rate of our modules 5ms.
     public static final double kDt = 0.02;
 
-    public static final double VOLTAGE = 0.5;
+    public static final double VOLTAGE = 6;
 
     public static final int DRIVETRAIN_MAX_CURRENT = 40;
 
     public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
     public static final double INERTIA_WHEEL = 0.0005;
-    public static final double INERTIA_STEER = 0.005;
+    public static final double INERTIA_STEER = 0.007;
 
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.
     // Model noise are assuming that our model isn't as accurate as our sensors.
-    public static final double MODEL_AZIMUTH_ANGLE_NOISE = .1; // radians
-    public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 5.0; // radians per sec
-    public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 5.0; // radians per sec
+    public static final double MODEL_AZIMUTH_ANGLE_NOISE = .001; // radians
+    public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 0.1; // radians per sec
+    public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 0.1; // radians per sec
 
     // Noise from sensors. Falcon With Gearbox causes us to have more uncertainty so
     // we increase
     // the noise.
     public static final double SENSOR_AZIMUTH_ANGLE_NOISE = 0.01; // radians
-    public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.1; // radians per sec
-    public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.1; // radians per sec
+    public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.01; // radians per sec
+    public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.01; // radians per sec
 
     // A weight for how aggressive each state should be ie. 0.08 radians will try to
     // control the
     // angle more aggressively than the wheel angular velocity.
-    public static final double Q_AZIMUTH_ANG_VELOCITY = 1.1; // radians per sec
-    public static final double Q_AZIMUTH = 0.08; // radians
-    public static final double Q_WHEEL_ANG_VELOCITY = 5; // radians per sec
+    public static final double Q_AZIMUTH_ANG_VELOCITY = 50.0; // radians per sec
+    public static final double Q_AZIMUTH = 2.5; //Inverse for some fucking reason
+    public static final double Q_WHEEL_ANG_VELOCITY = 35.5; // radians per sec
 
-    public static final double CONTROL_EFFORT = 0.8;
+    public static final double CONTROL_EFFORT = 5.0;
 
     // Size of the robot chassis in meters
     public static final double WIDTH = Units.feetToMeters(2); // meters

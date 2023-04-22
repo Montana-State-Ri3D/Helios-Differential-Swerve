@@ -126,8 +126,7 @@ public class SwerveModule {
                                                 Math.PI))
                                 .plus(VecBuilder.fill(
                                                 FEED_FORWARD * reference.get(2, 0),
-                                                -FEED_FORWARD
-                                                                * reference.get(2, 0))));
+                                                -FEED_FORWARD * reference.get(2, 0))));
                 swerveControlLoop.getObserver().predict(u, kDt);
         }
 
