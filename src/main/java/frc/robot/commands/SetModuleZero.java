@@ -12,12 +12,14 @@ import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 public class SetModuleZero extends CommandBase {
 
   private final DrivetrainSubsystem drivetrain;
+  private final double angal;
 
   /** Creates a new SetModuleZero. */
-  public SetModuleZero(DrivetrainSubsystem drivetrain) {
+  public SetModuleZero(DrivetrainSubsystem drivetrain, double angal) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
+    this.angal = angal;
   }
 
   // Called when the command is initially scheduled.
@@ -30,10 +32,10 @@ public class SetModuleZero extends CommandBase {
   @Override
   public void execute() {
     SwerveModuleState[] moduleStates = new SwerveModuleState[] {
-        new SwerveModuleState(0.0, new Rotation2d(0.0)),
-        new SwerveModuleState(0.0, new Rotation2d(0.0)),
-        new SwerveModuleState(0.0, new Rotation2d(0.0)),
-        new SwerveModuleState(0.0, new Rotation2d(0.0)),
+        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
+        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
+        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
+        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
     };
 
     drivetrain.setManualModuleState(moduleStates);

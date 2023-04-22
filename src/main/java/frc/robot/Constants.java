@@ -55,7 +55,7 @@ public final class Constants {
 
     public static final int DRIVETRAIN_PIGEON_ID = 13;
 
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(0);
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(225);
     public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(0);
     public static final double BACK_LEFT_MODULE_STEER_OFFSET = Math.toRadians(0);
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(0);
@@ -69,8 +69,8 @@ public final class Constants {
 
     public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
-    public static final double INERTIA_WHEEL = 0.5;
-    public static final double INERTIA_STEER = 0.00008;
+    public static final double INERTIA_WHEEL = 0.0005;
+    public static final double INERTIA_STEER = 0.005;
 
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.

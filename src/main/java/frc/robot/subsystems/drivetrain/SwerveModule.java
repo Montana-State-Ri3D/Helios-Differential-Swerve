@@ -97,7 +97,7 @@ public class SwerveModule {
 
         public void setTargetState(SwerveModuleState state) {
                 setReference(VecBuilder.fill(state.angle.getRadians(), 0,
-                                state.speedMetersPerSecond / (WHEEL_DIAMETER_METERS / 2.0)));
+                                -state.speedMetersPerSecond / (WHEEL_DIAMETER_METERS / 2.0)));
         }
 
         public void setReference(Matrix<N3, N1> reference) {

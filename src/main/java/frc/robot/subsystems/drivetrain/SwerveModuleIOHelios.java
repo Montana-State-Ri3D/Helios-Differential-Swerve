@@ -22,7 +22,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
     private final CANSparkMax bottomMotor;
     private final CANSparkMax topMotor;
-    //private final CANCoder steerEncoder;
+    private final CANCoder steerEncoder;
     private final RelativeEncoder bottomEncoder;
     private final RelativeEncoder topEncoder;
     private final double offset;
@@ -36,9 +36,11 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
         bottomMotor = new CANSparkMax(bottomMotorID, MotorType.kBrushless);
         topMotor = new CANSparkMax(topMotorID, MotorType.kBrushless);
-        //steerEncoder = new CANCoder(steerEncoderID);
+        steerEncoder = new CANCoder(steerEncoderID);
 
         this.offset = offset;
+
+        steerEncoder.configMagnetOffset(Math.toDegrees(offset));
 
         IdleMode idleMode = IdleMode.kBrake;
 
@@ -63,9 +65,9 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         bottomEncoder.setPosition(0);
         topEncoder.setPosition(0);
 
-        //steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
+        steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
-        //steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+        steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
 
         // Workaround so that we always read a valid angle from the steer encoder when
         // setting up the steer motor.
@@ -93,11 +95,11 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         inputs.topCurrentDrawAmps = topMotor.getOutputCurrent();
         inputs.topTemp = topMotor.getMotorTemperature();
 
-        //inputs.absoluteAngleRad = Units.degreesToRadians(steerEncoder.getPosition())-offset;
-        //inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
+        inputs.absoluteAngleRad = (Units.degreesToRadians(steerEncoder.getAbsolutePosition()));
+        inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
 
-        inputs.absoluteAngleRad = MathUtil.inputModulus(((topEncoder.getPosition() - bottomEncoder.getPosition())*STEER_RADIO)/(2.0),-Math.PI,Math.PI);
-        inputs.absoluteAngularVelocityRadPerSec = ((topEncoder.getVelocity() - bottomEncoder.getVelocity())*STEER_RADIO)/(2.0);
+        //inputs.absoluteAngleRad = MathUtil.inputModulus(((topEncoder.getPosition() - bottomEncoder.getPosition())*STEER_RADIO)/(2.0),-Math.PI,Math.PI);
+        //inputs.absoluteAngularVelocityRadPerSec = ((topEncoder.getVelocity() - bottomEncoder.getVelocity())*STEER_RADIO)/(2.0);
 
         inputs.wheelAngalRad = ((bottomEncoder.getPosition() + topEncoder.getPosition())*DRIVE_RADIO)/(2.0);
         inputs.wheelAngularVelocityRadPerSec = ((bottomEncoder.getVelocity() + topEncoder.getVelocity())*DRIVE_RADIO)/(2.0);
@@ -108,7 +110,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
     @Override
     public void setVoltages(double bottomPower, double topPower) {
-        bottomMotor.setVoltage(bottomPower);
+        bottomMotor.setVoltage(-bottomPower);
         topMotor.setVoltage(topPower);
     }
 }
