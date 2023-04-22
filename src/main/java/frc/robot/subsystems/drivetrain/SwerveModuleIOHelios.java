@@ -60,6 +60,9 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         bottomMotor.setControlFramePeriodMs((int)kDt*1000);
         topMotor.setControlFramePeriodMs((int)kDt*1000);
 
+        bottomEncoder.setPosition(0);
+        topEncoder.setPosition(0);
+
         //steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
         //steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
@@ -93,11 +96,11 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         //inputs.absoluteAngleRad = Units.degreesToRadians(steerEncoder.getPosition())-offset;
         //inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
 
-        inputs.absoluteAngleRad = MathUtil.inputModulus((bottomEncoder.getPosition() + topEncoder.getPosition())/(STEER_RADIO*2.0), -Math.PI, Math.PI);
-        inputs.absoluteAngularVelocityRadPerSec = (bottomEncoder.getVelocity() + topEncoder.getVelocity())/(STEER_RADIO * 2.0);
+        inputs.absoluteAngleRad = MathUtil.inputModulus(((topEncoder.getPosition() - bottomEncoder.getPosition())*STEER_RADIO)/(2.0),-Math.PI,Math.PI);
+        inputs.absoluteAngularVelocityRadPerSec = ((topEncoder.getVelocity() - bottomEncoder.getVelocity())*STEER_RADIO)/(2.0);
 
-        inputs.wheelAngalRad = (bottomEncoder.getPosition() - topEncoder.getPosition())/(DRIVE_RADIO * 2.0);
-        inputs.wheelAngularVelocityRadPerSec = (bottomEncoder.getVelocity() - topEncoder.getVelocity())/(DRIVE_RADIO * 2.0);
+        inputs.wheelAngalRad = ((bottomEncoder.getPosition() + topEncoder.getPosition())*DRIVE_RADIO)/(2.0);
+        inputs.wheelAngularVelocityRadPerSec = ((bottomEncoder.getVelocity() + topEncoder.getVelocity())*DRIVE_RADIO)/(2.0);
         
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);

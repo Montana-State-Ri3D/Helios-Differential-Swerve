@@ -63,14 +63,14 @@ public final class Constants {
     // update rate of our modules 5ms.
     public static final double kDt = 0.02;
 
-    public static final double VOLTAGE = 12;
+    public static final double VOLTAGE = 0.5;
 
     public static final int DRIVETRAIN_MAX_CURRENT = 40;
 
     public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
-    public static final double INERTIA_WHEEL = 0.0005;
-    public static final double INERTIA_STEER = 0.0004;
+    public static final double INERTIA_WHEEL = 0.5;
+    public static final double INERTIA_STEER = 0.00008;
 
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.

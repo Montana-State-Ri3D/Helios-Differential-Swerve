@@ -28,7 +28,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private ChassisSpeeds targetChassisVelocity = new ChassisSpeeds();
     private SwerveModuleState[] manualModuleStates;
     private double[] chassisVelocityLogged = new double[3];
-    private boolean enableOptimizedModuleStates = true;
+    private boolean enableOptimizedModuleStates = false;
     private boolean enableManualModuleStates = false;
 
     public DrivetrainSubsystem(

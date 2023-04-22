@@ -12,7 +12,7 @@ public class DefaultDrivetrainCommand extends CommandBase {
     private final DoubleSupplier xVelocitySupplier;
     private final DoubleSupplier yVelocitySupplier;
     private final DoubleSupplier angularVelocitySupplier;
-    private boolean isFieldOriented = true;
+    private boolean isFieldOriented = false;
 
     public DefaultDrivetrainCommand(DrivetrainSubsystem drivetrain,
             DoubleSupplier xVelocitySupplier,
