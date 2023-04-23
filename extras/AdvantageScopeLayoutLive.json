@@ -167,7 +167,7 @@
       ],
       "listFields": [],
       "options": {
-        "maxSpeed": 5.9436,
+        "maxSpeed": 5.394,
         "rotationUnits": "radians",
         "arrangement": "0,1,2,3",
         "sizeLeftRight": 0.65,
@@ -185,7 +185,7 @@
       ],
       "listFields": [],
       "options": {
-        "maxSpeed": 0.1,
+        "maxSpeed": 5.394,
         "rotationUnits": "radians",
         "arrangement": "0,1,2,3",
         "sizeLeftRight": 0.65,
