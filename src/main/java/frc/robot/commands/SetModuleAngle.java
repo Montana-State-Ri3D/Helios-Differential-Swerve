@@ -9,13 +9,13 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 
-public class SetModuleZero extends CommandBase {
+public class SetModuleAngle extends CommandBase {
 
   private final DrivetrainSubsystem drivetrain;
   private final double angal;
 
   /** Creates a new SetModuleZero. */
-  public SetModuleZero(DrivetrainSubsystem drivetrain, double angal) {
+  public SetModuleAngle(DrivetrainSubsystem drivetrain, double angal) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);

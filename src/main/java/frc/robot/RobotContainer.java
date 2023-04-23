@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AlignCardinalDirectionCommand;
 import frc.robot.commands.DefaultDrivetrainCommand;
 import frc.robot.commands.ScaleJoystickCommand;
-import frc.robot.commands.SetModuleZero;
+import frc.robot.commands.SetModuleAngle;
 import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
 import frc.robot.utility.AutoCommandChooser;
 import frc.robot.utility.AutoCommandFactory;
@@ -74,8 +74,9 @@ public class RobotContainer {
 
     // Set modules to zero (Y)
     //driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem,0.0));
-     // Set modules to zero (Y)
-    //driveController.x().whileTrue(new SetModuleZero(drivetrainSubsystem,Math.toRadians(90)));
+
+     // Set modules to 90 degres (Y)
+    //driveController.x().whileTrue(new SetModuleZero(drivetrainSubsystem,Math.toRadians(90.0)));
 
     // Reset Gyro (Back)
     //driveController.back().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),new Rotation2d()))));
