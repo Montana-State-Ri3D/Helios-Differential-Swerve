@@ -32,10 +32,10 @@ public class SetModuleAngle extends CommandBase {
   @Override
   public void execute() {
     SwerveModuleState[] moduleStates = new SwerveModuleState[] {
-        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
-        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
-        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
-        new SwerveModuleState(0.0, new Rotation2d(angal-0.0001)),
+        new SwerveModuleState(0.0, new Rotation2d(angal)),
+        new SwerveModuleState(0.0, new Rotation2d(angal)),
+        new SwerveModuleState(0.0, new Rotation2d(angal)),
+        new SwerveModuleState(0.0, new Rotation2d(angal)),
     };
 
     drivetrain.setManualModuleState(moduleStates);

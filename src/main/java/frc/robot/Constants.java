@@ -30,7 +30,7 @@ public final class Constants {
     public static final double DRIVE_RADIO = (10.0 / 84.0) * (54.0 / 12.0) * (15.0 / 45.0);
     public static final double STEER_RADIO = (10.0 / 84.0);
 
-    public static final double TRANSLATIONAN_FREE_SPEED = 5.9436;// M/Sec
+    public static final double TRANSLATIONAN_FREE_SPEED = 5.39496;// M/Sec
 
     public static final double MOTOR_FREE_SPEED = 5676;// RPM
 
@@ -63,7 +63,7 @@ public final class Constants {
     // update rate of our modules 5ms.
     public static final double kDt = 0.02;
 
-    public static final double VOLTAGE = 6;
+    public static final double VOLTAGE = 12;
 
     public static final int DRIVETRAIN_MAX_CURRENT = 40;
 
