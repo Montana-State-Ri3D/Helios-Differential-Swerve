@@ -64,17 +64,17 @@ public class RobotContainer {
 
   private void configureBindings() {
     // Slow Mode 50% power (A)
-    //driveController.a().whileTrue(new ScaleJoystickCommand(driverHelper, 0.5));
+    driveController.a().whileTrue(new ScaleJoystickCommand(driverHelper, 0.5));
 
     // Toggle Field Orented (X)
-    //driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
+    driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
 
     //align Cardinal Direction (B)
     //driveController.b().onTrue(new AlignCardinalDirectionCommand(drivetrainSubsystem));
 
     // Set modules to zero (Y)
     driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem,0.0));
-    
+
      // Set modules to zero (Y)
     driveController.x().whileTrue(new SetModuleZero(drivetrainSubsystem,Math.toRadians(90)));
 
@@ -82,7 +82,7 @@ public class RobotContainer {
     //driveController.back().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),new Rotation2d()))));
 
     // reset Pose (Start)
-    //driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
+    driveController.start().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d())));
   }
 
   private void setupAutoChooser() {

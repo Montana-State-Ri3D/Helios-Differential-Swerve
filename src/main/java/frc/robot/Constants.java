@@ -63,7 +63,7 @@ public final class Constants {
     // update rate of our modules 5ms.
     public static final double kDt = 0.02;
 
-    public static final double VOLTAGE = 6;
+    public static final double VOLTAGE = 12;
 
     public static final int DRIVETRAIN_MAX_CURRENT = 40;
 

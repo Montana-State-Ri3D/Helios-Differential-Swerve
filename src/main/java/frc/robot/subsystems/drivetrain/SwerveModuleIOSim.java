@@ -64,7 +64,7 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     public void setVoltages(double bottomPower, double topPower) {
 
         if (Robot.isEnabled) {
-            this.bottomPower = -bottomPower;
+            this.bottomPower = bottomPower;
             this.topPower = topPower;
 
             topMotorSim.setInputVoltage(this.topPower);
