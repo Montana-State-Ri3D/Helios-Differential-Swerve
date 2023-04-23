@@ -73,9 +73,10 @@ public class RobotContainer {
     //driveController.b().onTrue(new AlignCardinalDirectionCommand(drivetrainSubsystem));
 
     // Set modules to zero (Y)
-    //driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem,0.0));
+    driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem,0.0));
+    
      // Set modules to zero (Y)
-    //driveController.x().whileTrue(new SetModuleZero(drivetrainSubsystem,Math.toRadians(90)));
+    driveController.x().whileTrue(new SetModuleZero(drivetrainSubsystem,Math.toRadians(90)));
 
     // Reset Gyro (Back)
     //driveController.back().onTrue(new InstantCommand(() -> drivetrainSubsystem.resetPose(new Pose2d(drivetrainSubsystem.getPose().getX(), drivetrainSubsystem.getPose().getY(),new Rotation2d()))));

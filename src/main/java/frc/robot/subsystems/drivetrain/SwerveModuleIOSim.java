@@ -22,7 +22,7 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     private final DCMotorSim bottomMotorSim;
     private final DCMotorSim topMotorSim;
 
-    private final double momentjKgMetersSquared = 0.005;
+    private final double momentjKgMetersSquared = 0.0001;
 
     public SwerveModuleIOSim() {
 
@@ -50,11 +50,11 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
         inputs.topCurrentDrawAmps = topMotorSim.getCurrentDrawAmps();  
         inputs.topTemp = 0;      
 
-        inputs.absoluteAngleRad = MathUtil.inputModulus((bottomMotorSim.getAngularPositionRad() + topMotorSim.getAngularPositionRad())/(STEER_RADIO*2.0), -Math.PI, Math.PI);
-        inputs.absoluteAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec() + topMotorSim.getAngularVelocityRadPerSec())/(STEER_RADIO*2.0);
+        inputs.absoluteAngleRad = MathUtil.inputModulus(((topMotorSim.getAngularPositionRad() - bottomMotorSim.getAngularPositionRad())*STEER_RADIO)/(2.0), -Math.PI, Math.PI);
+        inputs.absoluteAngularVelocityRadPerSec = ((topMotorSim.getAngularVelocityRadPerSec() - bottomMotorSim.getAngularVelocityRadPerSec())*STEER_RADIO)/(2.0);
 
-        inputs.wheelAngalRad = (bottomMotorSim.getAngularPositionRad() - topMotorSim.getAngularPositionRad())/(DRIVE_RADIO * 2.0);
-        inputs.wheelAngularVelocityRadPerSec = (bottomMotorSim.getAngularVelocityRadPerSec() - topMotorSim.getAngularVelocityRadPerSec())/(DRIVE_RADIO * 2.0);
+        inputs.wheelAngalRad = ((bottomMotorSim.getAngularPositionRad() + topMotorSim.getAngularPositionRad())*DRIVE_RADIO)/(2.0);
+        inputs.wheelAngularVelocityRadPerSec = ((bottomMotorSim.getAngularVelocityRadPerSec() + topMotorSim.getAngularVelocityRadPerSec())*DRIVE_RADIO)/(2.0);
         
         inputs.wheelSpeedMPerSec = inputs.wheelAngularVelocityRadPerSec * (WHEEL_DIAMETER_METERS/2.0);
         inputs.wheelDistanceM = inputs.wheelAngalRad * (WHEEL_DIAMETER_METERS/2.0);
@@ -64,11 +64,11 @@ public class SwerveModuleIOSim implements SwerveModuleIO {
     public void setVoltages(double bottomPower, double topPower) {
 
         if (Robot.isEnabled) {
-            this.bottomPower = bottomPower;
+            this.bottomPower = -bottomPower;
             this.topPower = topPower;
 
-            topMotorSim.setInputVoltage(topPower);
-            bottomMotorSim.setInputVoltage(bottomPower);
+            topMotorSim.setInputVoltage(this.topPower);
+            bottomMotorSim.setInputVoltage(this.bottomPower);
         } else {
             this.bottomPower = 0;
             this.topPower = 0;
