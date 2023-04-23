@@ -86,14 +86,15 @@ public final class Constants {
     public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.01; // radians per sec
     public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.01; // radians per sec
 
-    // A weight for how aggressive each state should be ie. 0.08 radians will try to
-    // control the
-    // angle more aggressively than the wheel angular velocity.
-    public static final double Q_AZIMUTH_ANG_VELOCITY = 50.0; // Penalize Azimuth Angular Velocity (HIGHER to Limit Max Azimuth Velocity while maintaining wheel velocity)
-    public static final double Q_AZIMUTH = 2.5; // Penalize Azimuith Error (HIGHER to Correct Azimuth Angle Faster)
-    public static final double Q_WHEEL_ANG_VELOCITY = 35.5; // Penalize Wheel Velocity (HIGHER to limit Max Wheel Velocity while maintaining azimuth velocity)
-
-    public static final double CONTROL_EFFORT = 5.0; // Penalize Motor Effort (LOWER for a more aggressive control)
+    // Penalize Azimuth Angular Velocity (HIGHER to Limit Max Azimuth Velocity while maintaining wheel velocity)
+    public static final double Q_AZIMUTH_ANG_VELOCITY = 50.0; 
+    // Penalize Azimuith Error (HIGHER to Correct Azimuth Angle Faster)
+    public static final double Q_AZIMUTH = 2.5; 
+    // Penalize Wheel Velocity (HIGHER to limit Max Wheel Velocity while maintaining azimuth velocity)
+    public static final double Q_WHEEL_ANG_VELOCITY = 35.5;
+    
+    // Penalize Motor Effort (LOWER for a more aggressive control)
+    public static final double CONTROL_EFFORT = 5.0; 
 
     // Size of the robot chassis in meters
     public static final double WIDTH = Units.feetToMeters(2); // meters
