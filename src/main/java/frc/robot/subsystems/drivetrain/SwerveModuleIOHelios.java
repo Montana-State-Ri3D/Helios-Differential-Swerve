@@ -8,7 +8,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 
 import static frc.robot.Constants.*;
@@ -25,7 +24,6 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
     private final CANCoder steerEncoder;
     private final RelativeEncoder bottomEncoder;
     private final RelativeEncoder topEncoder;
-    private final double offset;
 
 
     public SwerveModuleIOHelios(
@@ -37,8 +35,6 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         bottomMotor = new CANSparkMax(bottomMotorID, MotorType.kBrushless);
         topMotor = new CANSparkMax(topMotorID, MotorType.kBrushless);
         steerEncoder = new CANCoder(steerEncoderID);
-
-        this.offset = offset;
 
         steerEncoder.configMagnetOffset(Math.toDegrees(offset));
 
