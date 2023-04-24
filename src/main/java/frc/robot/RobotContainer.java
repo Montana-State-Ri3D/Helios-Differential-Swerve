@@ -70,12 +70,12 @@ public class RobotContainer {
     //driveController.x().onTrue(new InstantCommand(() -> defaultDrivetrainCommand.toggleFieldOriented()));
 
     //align Cardinal Direction (B)
-    //driveController.b().onTrue(new AlignCardinalDirectionCommand(drivetrainSubsystem));
+    //driveController.b().onTrue(new AligPnCardinalDirectionCommand(drivetrainSubsystem));
 
     // Set modules to zero (Y)
     //driveController.y().whileTrue(new SetModuleZero(drivetrainSubsystem,0.0));
 
-     // Set modules to 90 degres (Y)
+     // Set modules to 90 degres (X)
     //driveController.x().whileTrue(new SetModuleZero(drivetrainSubsystem,Math.toRadians(90.0)));
 
     // Reset Gyro (Back)
