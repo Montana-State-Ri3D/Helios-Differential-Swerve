@@ -75,26 +75,27 @@ public final class Constants {
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.
     // Model noise are assuming that our model isn't as accurate as our sensors.
-    public static final double MODEL_AZIMUTH_ANGLE_NOISE = .001; // radians
-    public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 0.1; // radians per sec
-    public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 0.1; // radians per sec
-
-    // Noise from sensors. Falcon With Gearbox causes us to have more uncertainty so
-    // we increase
-    // the noise.
-    public static final double SENSOR_AZIMUTH_ANGLE_NOISE = 0.01; // radians
-    public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.01; // radians per sec
-    public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.01; // radians per sec
-
-    // Penalize Azimuth Angular Velocity (HIGHER to Limit Max Azimuth Velocity while maintaining wheel velocity)
-    public static final double Q_AZIMUTH_ANG_VELOCITY = 50.0; 
-    // Penalize Azimuith Error (HIGHER to Correct Azimuth Angle Faster)
-    public static final double Q_AZIMUTH = 2.5; 
-    // Penalize Wheel Velocity (HIGHER to limit Max Wheel Velocity while maintaining azimuth velocity)
-    public static final double Q_WHEEL_ANG_VELOCITY = 35.5;
+    public static final double MODEL_AZIMUTH_ANGLE_NOISE = .1; // radians
+    public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 5.0; // radians per sec
+    public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 5.0; // radians per sec
     
+    // Noise from sensors. Falcon With Gearbox causes us to have more uncertainty so
+    // we increase the noise.
+    public static final double SENSOR_AZIMUTH_ANGLE_NOISE = 0.01; // radians
+    public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.1; // radians per sec
+    public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.1; // radians per sec
+
+    // Penalize Azimuth Angular Velocity (HIGHER to Limit Max Azimuth Velocity while
+    // maintaining wheel velocity)
+    public static final double Q_AZIMUTH_ANG_VELOCITY = 50.0;
+    // Penalize Azimuith Error (HIGHER to Correct Azimuth Angle Faster)
+    public static final double Q_AZIMUTH = 2.5;
+    // Penalize Wheel Velocity (HIGHER to limit Max Wheel Velocity while maintaining
+    // azimuth velocity)
+    public static final double Q_WHEEL_ANG_VELOCITY = 35.5;
+
     // Penalize Motor Effort (LOWER for a more aggressive control)
-    public static final double CONTROL_EFFORT = 5.0; 
+    public static final double CONTROL_EFFORT = 5.0;
 
     // Size of the robot chassis in meters
     public static final double WIDTH = Units.feetToMeters(2); // meters
