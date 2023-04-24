@@ -63,7 +63,7 @@ public final class Constants {
     // update rate of our modules 5ms.
     public static final double kDt = 0.02;
 
-    public static final double VOLTAGE = 12;
+    public static final double VOLTAGE = 4;
 
     public static final int DRIVETRAIN_MAX_CURRENT = 40;
 
@@ -78,7 +78,7 @@ public final class Constants {
     public static final double MODEL_AZIMUTH_ANGLE_NOISE = .1; // radians
     public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 5.0; // radians per sec
     public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 5.0; // radians per sec
-    
+
     // Noise from sensors. Falcon With Gearbox causes us to have more uncertainty so
     // we increase the noise.
     public static final double SENSOR_AZIMUTH_ANGLE_NOISE = 0.01; // radians

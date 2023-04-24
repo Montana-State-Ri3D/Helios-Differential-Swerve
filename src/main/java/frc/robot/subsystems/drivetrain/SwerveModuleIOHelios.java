@@ -106,7 +106,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
     @Override
     public void setVoltages(double bottomPower, double topPower) {
-        bottomMotor.setVoltage(-bottomPower);
+        bottomMotor.setVoltage(bottomPower);
         topMotor.setVoltage(topPower);
     }
 }
