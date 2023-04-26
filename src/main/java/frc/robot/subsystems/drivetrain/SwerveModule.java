@@ -87,9 +87,15 @@ public class SwerveModule {
                 // sets the next reference / setpoint.
                 swerveControlLoop.setNextR(reference);
                 // updates the kalman filter with new data points.
-                swerveControlLoop.correct(VecBuilder.fill(-inputs.absoluteAngleRad,inputs.absoluteAngularVelocityRadPerSec, inputs.wheelAngularVelocityRadPerSec));
+                swerveControlLoop.correct(VecBuilder.fill(-inputs.absoluteAngleRadContiuious,inputs.absoluteAngularVelocityRadPerSec, inputs.wheelAngularVelocityRadPerSec));
                 // predict step of kalman filter.
                 predict();
+
+                KalmanFilter obsKalmanFilter = swerveControlLoop.getObserver();
+
+                double[] kalmanout =new double[] {obsKalmanFilter.getXhat(0),obsKalmanFilter.getXhat(1),obsKalmanFilter.getXhat(2)};
+
+                Logger.getInstance().recordOutput("Drivetrain/" + name + "/Kalman",kalmanout );
 
                 setPowers(getBottomNextVoltage(), getTopNextVoltage());
         }
@@ -166,7 +172,7 @@ public class SwerveModule {
          * @param maxAngle  is the maximum angle in our case PI.
          */
         private Matrix<N3, N1> wrapAngle(Matrix<N3, N1> reference, Matrix<N3, N1> xHat, double minAngle, double maxAngle) {
-                double angleError = reference.get(0, 0) - inputs.absoluteAngleRad;
+                double angleError = reference.get(0, 0) - inputs.absoluteAngleRadContiuious;
                 double positionError = MathUtil.inputModulus(angleError, minAngle, maxAngle);
                 Matrix<N3, N1> error = reference.minus(xHat);
                 return VecBuilder.fill(positionError, error.get(1, 0), error.get(2, 0));

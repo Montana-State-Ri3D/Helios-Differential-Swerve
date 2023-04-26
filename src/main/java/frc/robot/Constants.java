@@ -75,15 +75,15 @@ public final class Constants {
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.
     // Model noise are assuming that our model isn't as accurate as our sensors.
-    public static final double MODEL_AZIMUTH_ANGLE_NOISE = 0.01; // radians
-    public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 0.1; // radians per sec
-    public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 0.1; // radians per sec
+    public static final double MODEL_AZIMUTH_ANGLE_NOISE = 5.0; // radians
+    public static final double MODEL_AZIMUTH_ANG_VELOCITY_NOISE = 5.0; // radians per sec
+    public static final double MODEL_WHEEL_ANG_VELOCITY_NOISE = 500.0; // radians per sec
 
     // Noise from sensors. Falcon With Gearbox causes us to have more uncertainty so
     // we increase the noise.
     public static final double SENSOR_AZIMUTH_ANGLE_NOISE = 0.001; // radians
     public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.01; // radians per sec
-    public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.01; // radians per sec
+    public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.00001; // radians per sec
 
     // Penalize Azimuth Angular Velocity (HIGHER to Limit Max Azimuth Velocity while
     // maintaining wheel velocity)
