@@ -63,7 +63,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
         steerEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData,(int)kDt*1000);
 
-        steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+        steerEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
 
         // Workaround so that we always read a valid angle from the steer encoder when
         // setting up the steer motor.
