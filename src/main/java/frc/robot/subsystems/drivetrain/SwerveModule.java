@@ -16,6 +16,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.system.LinearSystem;
 import edu.wpi.first.math.system.LinearSystemLoop;
 import edu.wpi.first.math.system.plant.DCMotor;
+import frc.robot.utility.KalmanFilterReplacment;
 
 import static frc.robot.Constants.*;
 
@@ -47,7 +48,7 @@ public class SwerveModule {
 
                 // Creates a Kalman Filter as our Observer for our module. Works
                 // since system is linear.
-                KalmanFilter<N3, N2, N3> swerveObserver = new KalmanFilter<>(Nat.N3(), Nat.N3(), swerveModuleModel,
+                KalmanFilterReplacment<N3, N2, N3> swerveObserver = new KalmanFilterReplacment<>(Nat.N3(), Nat.N3(), swerveModuleModel,
                                 Matrix.mat(Nat.N3(), Nat.N1()).fill(
                                                 MODEL_AZIMUTH_ANGLE_NOISE,
                                                 MODEL_AZIMUTH_ANG_VELOCITY_NOISE,
@@ -91,9 +92,9 @@ public class SwerveModule {
                 // predict step of kalman filter.
                 predict();
 
-                KalmanFilter obsKalmanFilter = swerveControlLoop.getObserver();
+                KalmanFilter<N3, N2, N3> swerveObserver = swerveControlLoop.getObserver();
 
-                double[] kalmanout =new double[] {obsKalmanFilter.getXhat(0),obsKalmanFilter.getXhat(1),obsKalmanFilter.getXhat(2)};
+                double[] kalmanout = new double[] {-swerveObserver.getXhat(0),swerveObserver.getXhat(1),swerveObserver.getXhat(2)};
 
                 Logger.getInstance().recordOutput("Drivetrain/" + name + "/Kalman",kalmanout );
 
@@ -202,3 +203,4 @@ public class SwerveModule {
                 return new LinearSystem<>(A, B, C, D);
         }
 }
+  

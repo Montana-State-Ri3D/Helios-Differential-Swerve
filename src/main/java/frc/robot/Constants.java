@@ -55,7 +55,7 @@ public final class Constants {
 
     public static final int DRIVETRAIN_PIGEON_ID = 13;
 
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(225);
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(-162-180);
     public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(0);
     public static final double BACK_LEFT_MODULE_STEER_OFFSET = Math.toRadians(0);
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(0);
@@ -63,14 +63,14 @@ public final class Constants {
     // update rate of our modules 5ms.
     public static final double kDt = 0.02;
 
-    public static final double VOLTAGE = 4;
+    public static final double VOLTAGE = 2;
 
     public static final int DRIVETRAIN_MAX_CURRENT = 40;
 
     public static final double FEED_FORWARD = VOLTAGE / (MOTOR_FREE_SPEED / DRIVE_RADIO);
 
-    public static final double INERTIA_WHEEL = 0.0005;
-    public static final double INERTIA_STEER = 0.007;
+    public static final double INERTIA_WHEEL = 0.0002;
+    public static final double INERTIA_STEER = 0.002;
 
     // This is for Kalman filter which isn't used for azimuth angle due to angle
     // wrapping.
@@ -87,15 +87,15 @@ public final class Constants {
 
     // Penalize Azimuth Angular Velocity (HIGHER to Limit Max Azimuth Velocity while
     // maintaining wheel velocity)
-    public static final double Q_AZIMUTH_ANG_VELOCITY = 25.0;
+    public static final double Q_AZIMUTH_ANG_VELOCITY = 10;
     // Penalize Azimuith Error (HIGHER to Correct Azimuth Angle Faster)
-    public static final double Q_AZIMUTH = 4.0;
+    public static final double Q_AZIMUTH = 50;
     // Penalize Wheel Velocity (HIGHER to limit Max Wheel Velocity while maintaining
     // azimuth velocity)
-    public static final double Q_WHEEL_ANG_VELOCITY = 10.0;
+    public static final double Q_WHEEL_ANG_VELOCITY = 50;
 
     // Penalize Motor Effort (Higher for a more aggressive control)
-    public static final double CONTROL_EFFORT = VOLTAGE;
+    public static final double CONTROL_EFFORT = 4;
 
     // Size of the robot chassis in meters
     public static final double WIDTH = Units.feetToMeters(2); // meters
