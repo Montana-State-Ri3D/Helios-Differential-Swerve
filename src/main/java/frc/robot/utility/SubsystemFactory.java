@@ -2,7 +2,7 @@ package frc.robot.utility;
 
 import static frc.robot.Constants.*;
 
-import frc.robot.subsystems.drivetrain.DrivetrainSubsystem;
+import frc.robot.commands.DrivetrainSubsystem;
 import frc.robot.subsystems.drivetrain.GyroIO;
 import frc.robot.subsystems.drivetrain.GyroIOPigeon2;
 import frc.robot.subsystems.drivetrain.GyroIOSim;
