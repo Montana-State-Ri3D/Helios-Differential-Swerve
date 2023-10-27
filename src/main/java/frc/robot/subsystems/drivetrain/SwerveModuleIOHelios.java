@@ -87,6 +87,7 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
         inputs.bottomAngleRad = bottomEncoder.getPosition();
         inputs.bottomAngularVelocityRadPerSec = bottomEncoder.getVelocity();
         inputs.bottomAppliedPower = bottomMotor.getAppliedOutput();
+
         inputs.bottomCurrentDrawAmps = bottomMotor.getOutputCurrent();
         inputs.bottomTemp = bottomMotor.getMotorTemperature();
 
@@ -98,7 +99,6 @@ public class SwerveModuleIOHelios implements SwerveModuleIO {
 
         inputs.absoluteAngleRad = (Units.degreesToRadians(steerEncoder.getAbsolutePosition()));
         inputs.absoluteAngularVelocityRadPerSec = Units.degreesToRadians(steerEncoder.getVelocity());
-
         inputs.absoluteAngleRadContiuious = Math.toRadians(steerEncoder.getPosition());
         //((topEncoder.getPosition() - bottomEncoder.getPosition())*STEER_RADIO)/(2.0);
         //inputs.absoluteAngularVelocityRadPerSec = ((topEncoder.getVelocity() - bottomEncoder.getVelocity())*STEER_RADIO)/(2.0);

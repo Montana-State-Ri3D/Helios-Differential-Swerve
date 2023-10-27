@@ -20,7 +20,7 @@ public class AdvantageKitHelper {
 
         // If this is a physical robot (with a Rio) then we can log to a USB drive.
         if (Robot.isReal()) {
-            logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
+            //logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
         }
 
         // We don't add the NT4 receiver in competition matches to reduce network

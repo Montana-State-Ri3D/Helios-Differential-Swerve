@@ -48,7 +48,7 @@ public class SwerveModule {
 
                 // Creates a Kalman Filter as our Observer for our module. Works
                 // since system is linear.
-                KalmanFilterReplacment<N3, N2, N3> swerveObserver = new KalmanFilterReplacment<>(Nat.N3(), Nat.N3(), swerveModuleModel,
+                KalmanFilter<N3, N2, N3> swerveObserver = new KalmanFilter<>(Nat.N3(), Nat.N3(), swerveModuleModel,
                                 Matrix.mat(Nat.N3(), Nat.N1()).fill(
                                                 MODEL_AZIMUTH_ANGLE_NOISE,
                                                 MODEL_AZIMUTH_ANG_VELOCITY_NOISE,
@@ -138,6 +138,7 @@ public class SwerveModule {
 
         private void setPowers(double bottomPower, double topPower) {
                 io.setVoltages(-bottomPower, topPower);
+                
         }
 
         /**
