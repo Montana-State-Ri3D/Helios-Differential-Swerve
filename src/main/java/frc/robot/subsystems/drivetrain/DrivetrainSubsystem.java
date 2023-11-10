@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.subsystems.drivetrain;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -7,10 +7,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.sim.SimModelData;
-import frc.robot.subsystems.drivetrain.GyroIO;
 import frc.robot.subsystems.drivetrain.GyroIOInputsAutoLogged;
-import frc.robot.subsystems.drivetrain.SwerveModule;
-import frc.robot.subsystems.drivetrain.SwerveModuleIO;
 
 import static frc.robot.Constants.*;
 
