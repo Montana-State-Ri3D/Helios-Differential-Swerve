@@ -18,6 +18,7 @@ import edu.wpi.first.math.system.LinearSystem;
 import edu.wpi.first.math.system.LinearSystemLoop;
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.utility.KalmanFilterReplacment;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 import static frc.robot.Constants.*;
 
@@ -30,18 +31,18 @@ public class SwerveModule {
 
         private final Translation2d positionVector;
         private Matrix<N3, N1> reference;
-        private SwerveModuleState targeState;
+        private SwerveModuleState targeState = new SwerveModuleState(0, new Rotation2d(0));
 
         private final PIDController steerPID;
         private final PIDController drivePID;
 
-        private final double steerkP = 0.10;
+        private final double steerkP = 1.0;
         private final double steerkI = 0.0;
         private final double steerkD = 0.0;
     
-        private final double drivekP = 0.00001;
+        private final double drivekP = 0.7;
         private final double drivekI = 0.0;
-        private final double drivekD = 0.0;
+        private final double drivekD = 0.1;
 
         public SwerveModule(String name, SwerveModuleIO io, Translation2d positionVector) {
                 this.name = name;
@@ -63,13 +64,13 @@ public class SwerveModule {
                 double drivePower = drivePID.calculate(inputs.wheelAngularVelocityRadPerSec);
         
                 double topMotor = (steerPower + drivePower);
-                double bottomMotor = (steerPower - drivePower);
+                double bottomMotor = - (steerPower - drivePower);
 
                 setPowers(bottomMotor,topMotor);
         }
 
         public void setTargetState(SwerveModuleState state) {
-                
+                this.targeState = state;
                 setReference(VecBuilder.fill(state.angle.getRadians(), 0,
                                 -state.speedMetersPerSecond / (WHEEL_DIAMETER_METERS / 2.0)));
         }
